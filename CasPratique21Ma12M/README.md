@@ -1,6 +1,6 @@
 # 🏡 Guide Pratique – Devis Maison Clé en Main et Optimisée
 
-## 1. Analyse du Plan de Maison
+## 1. Analyse du Plan de Maison  Plan 2 Chambres Salon 90m 2  sur 160 m2
 
 **Caractéristiques principales :**
 
@@ -13,6 +13,8 @@
 * Terrasse avant : 11,9 m²
 * Cour avant : 11,65 m²
 * Cour arrière : 12,65 m²
+
+  ![Plan 2 Chambres Salon 90m2](https://github.com/sanogotech/maisonlowcostbooster/blob/main/images/Maison2ChambresSalon90m2_21millionsCl%C3%A9sMainTiassal%C3%A9160M2.jpg)
 
 **Points forts :**
 
