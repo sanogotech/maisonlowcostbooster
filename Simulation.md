@@ -1,5 +1,8 @@
 # 🏠 Simulation : Réduction du Coût d’une Maison (Base 30M FCFA ---- 18 500 000 FCFA)
 
+- https://youtu.be/GEdvc5WSNy0?si=Gtz07_wzud6xUqzc
+  
+
 | Poste de dépense                                                       | Budget initial (FCFA) | Méthodes appliquées                                                        | Économie estimée | Nouveau coût |
 | ---------------------------------------------------------------------- | --------------------- | -------------------------------------------------------------------------- | ---------------- | ------------ |
 | **1. Terrain + fondations**                                            | 5 000 000             | Étude de sol simplifiée, choix terrain stable, optimisation des fondations | -10% = 500 000   | 4 500 000    |
