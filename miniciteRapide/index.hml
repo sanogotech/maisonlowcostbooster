@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investissement Mini-Cités Express - Côte d'Ivoire</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --accent-color: #e74c3c;
+      --success-color: #27ae60;
+      --light-bg: #f8f9fa;
+      --dark-bg: #343a40;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .navbar {
+      background-color: var(--primary-color);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      color: white;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--success-color) 100%);
+      color: white;
+      padding: 4rem 0;
+      margin-bottom: 3rem;
+      border-radius: 0 0 20px 20px;
+    }
+
+    .card {
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .card-header {
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: 600;
+    }
+
+    .module-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--secondary-color);
+    }
+
+    .btn-primary {
+      background-color: var(--success-color);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #219653;
+    }
+
+    .btn-outline-primary {
+      color: var(--success-color);
+      border-color: var(--success-color);
+    }
+
+    .btn-outline-primary:hover {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .simulation-container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .process-step {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 20px;
+    }
+
+    .process-step:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background-color: var(--success-color);
+      border-radius: 50%;
+    }
+
+    .process-step:after {
+      content: "";
+      position: absolute;
+      left: 9px;
+      top: 20px;
+      width: 2px;
+      height: 100%;
+      background-color: var(--success-color);
+    }
+
+    .process-step:last-child:after {
+      display: none;
+    }
+
+    .data-table {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    .data-table th {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .highlight-box {
+      background-color: rgba(39, 174, 96, 0.1);
+      border-left: 4px solid var(--success-color);
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .linked-modules {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .linked-module {
+      background-color: var(--light-bg);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: var(--primary-color);
+      border: 1px solid #ddd;
+    }
+
+    .tab-content {
+      padding: 1.5rem 0;
+    }
+
+    footer {
+      background-color: var(--dark-bg);
+      color: white;
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+
+    .investment-card {
+      border-left: 4px solid var(--success-color);
+    }
+
+    .investment-card .card-header {
+      background-color: white;
+      color: var(--primary-color);
+      border-bottom: 1px solid #eee;
+    }
+
+    .strategy-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .strategy-table th, .strategy-table td {
+      padding: 0.75rem;
+      border: 1px solid #dee2e6;
+    }
+
+    .strategy-table th {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 3rem;
+    }
+
+    .timeline:before {
+      content: "";
+      position: absolute;
+      left: 15px;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background-color: var(--success-color);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .timeline-item:before {
+      content: "";
+      position: absolute;
+      left: -3rem;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background-color: var(--success-color);
+      border-radius: 50%;
+    }
+
+    .chart-container {
+      height: 300px;
+      position: relative;
+    }
+
+    .chart-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #666;
+      font-style: italic;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 2rem 0;
+      }
+
+      .module-icon {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-house me-2"></i>Mini-Cités Express
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#strategie">Stratégie 5R</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#diversification">Diversification</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#simulations">Simulations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#etapes">Étapes clés</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#avantages">Avantages</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-section">
+    <div class="container text-center">
+      <h1 class="display-4 fw-bold mb-3">Investissement en Mini-Cités en Côte d'Ivoire</h1>
+      <p class="lead mb-4">Stratégie 5R : Rentable, Réalisable, Rapide, Résilient, Réplicable</p>
+      <div class="d-flex justify-content-center gap-3">
+        <a href="#strategie" class="btn btn-light btn-lg px-4">Découvrir la stratégie</a>
+        <a href="#simulations" class="btn btn-outline-light btn-lg px-4">Voir les simulations</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container mb-5">
+    <section class="mb-5">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h2 class="mb-4">Investissez hors d'Abidjan avec un modèle éprouvé</h2>
+          <p class="lead">Notre stratégie 5R vous permet de créer des mini-cités rentables en 12 mois maximum sur des terrains sans ACD, avec un modèle réplicable dans les villes secondaires de Côte d'Ivoire.</p>
+          <div class="d-flex justify-content-center mt-4">
+            <div class="px-4 text-center">
+              <i class="bi bi-currency-exchange fs-1 text-success"></i>
+              <p class="mt-2 fw-bold">Rentable</p>
+            </div>
+            <div class="px-4 text-center">
+              <i class="bi bi-gear fs-1 text-success"></i>
+              <p class="mt-2 fw-bold">Réalisable</p>
+            </div>
+            <div class="px-4 text-center">
+              <i class="bi bi-lightning fs-1 text-success"></i>
+              <p class="mt-2 fw-bold">Rapide</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="strategie" class="mb-5">
+      <h2 class="text-center mb-4">Stratégie 5R</h2>
+      
+      <div class="row mb-4">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-diagram-3 me-2"></i>
+              <h5 class="mb-0">Les 5R appliqués aux mini-cités</h5>
+            </div>
+            <div class="card-body">
+              <table class="strategy-table">
+                <thead>
+                  <tr>
+                    <th>R</th>
+                    <th>Description</th>
+                    <th>Application concrète</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Rentable 💰</strong></td>
+                    <td>Investissement initial modéré avec forte plus-value potentielle</td>
+                    <td>Investissement : ~4M CFA/terrain. Achat de 2-4 terrains. Plus-value via revente, construction ou location.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Réalisable 🛠️</strong></td>
+                    <td>Processus éprouvé et sécurisé</td>
+                    <td>Terrains dans lotissement approuvé. Notaire + géomètre. Suivi foncier jusqu'à ACD.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Rapide ⏱️</strong></td>
+                    <td>Délai d'exécution optimisé</td>
+                    <td>2 mois acquisition, 8 mois régularisation, 2 mois premières constructions.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Résilient 🔒</strong></td>
+                    <td>Anticipation des risques et plans de contournement</td>
+                    <td>Plan B : bornage/clôture. Anticipation litiges avec autorités locales.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Réplicable 🔄</strong></td>
+                    <td>Modèle conçu pour être dupliqué</td>
+                    <td>Reproduction possible dans villes secondaires. Passage à mini-cité planifiée 20-50 lots.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-calendar-event me-2"></i>
+              <h5 class="mb-0">Stratégie en 12 mois</h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th>Étape</th>
+                    <th>Durée</th>
+                    <th>Action clé</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Acquisition</td>
+                    <td>2 mois</td>
+                    <td>Identifier et acheter 2-4 terrains</td>
+                  </tr>
+                  <tr>
+                    <td>Régularisation</td>
+                    <td>8 mois</td>
+                    <td>Obtenir ACD et documents légaux</td>
+                  </tr>
+                  <tr>
+                    <td>Pré-développement</td>
+                    <td>1 mois</td>
+                    <td>Études techniques (voirie, eau, électricité)</td>
+                  </tr>
+                  <tr>
+                    <td>Construction de base</td>
+                    <td>1 mois</td>
+                    <td>Clôture + 1-2 maisons témoins</td>
+                  </tr>
+                  <tr>
+                    <td>Mise en marché</td>
+                    <td>Continu</td>
+                    <td>Réseautage, préventes, communication</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-lightbulb me-2"></i>
+              <h5 class="mb-0">Actions pratiques & accélérateurs</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Agir rapidement : sécuriser les terrains dès décision prise</li>
+                <li class="list-group-item">Réseautage actif : dîners immobiliers pour partenaires/acheteurs</li>
+                <li class="list-group-item">Communication : promouvoir mini-cité moderne et sécurisée</li>
+                <li class="list-group-item">Diversification : mixer vente de terrains, construction de logements F1-F4 et magasins commerciaux</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="diversification" class="mb-5">
+      <h2 class="text-center mb-4">Stratégie de diversification</h2>
+      
+      <div class="row mb-4">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-pie-chart me-2"></i>
+              <h5 class="mb-0">Diversification détaillée</h5>
+            </div>
+            <div class="card-body">
+              <ul class="nav nav-tabs mb-4" id="diversificationTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="terrains-tab" data-bs-toggle="tab" data-bs-target="#terrains" type="button" role="tab">Terrains nus</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="logements-tab" data-bs-toggle="tab" data-bs-target="#logements" type="button" role="tab">Logements</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="commerces-tab" data-bs-toggle="tab" data-bs-target="#commerces" type="button" role="tab">Commerces</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="mix-tab" data-bs-toggle="tab" data-bs-target="#mix" type="button" role="tab">Mix optimal</button>
+                </li>
+              </ul>
+              
+              <div class="tab-content" id="diversificationTabContent">
+                <div class="tab-pane fade show active" id="terrains" role="tabpanel">
+                  <h5>Vente de terrains nus</h5>
+                  <ul>
+                    <li>Achat : ~4M CFA / terrain</li>
+                    <li>Revente : 6M – 8M CFA</li>
+                    <li>Marge brute : +2M à +4M CFA/terrain</li>
+                  </ul>
+                  <p>Solution idéale pour générer rapidement du cash et financer les développements ultérieurs.</p>
+                </div>
+                
+                <div class="tab-pane fade" id="logements" role="tabpanel">
+                  <h5>Construction de logements</h5>
+                  <table class="table table-sm">
+                    <thead>
+                      <tr>
+                        <th>Type</th>
+                        <th>Superficie</th>
+                        <th>Coût</th>
+                        <th>Vente</th>
+                        <th>Location/mois</th>
+                        <th>Public cible</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>F1</td>
+                        <td>25-35 m²</td>
+                        <td>5-6M CFA</td>
+                        <td>8-10M CFA</td>
+                        <td>50k-80k</td>
+                        <td>Étudiants, célibataires</td>
+                      </tr>
+                      <tr>
+                        <td>F2</td>
+                        <td>45-60 m²</td>
+                        <td>7-9M CFA</td>
+                        <td>12-15M CFA</td>
+                        <td>80k-120k</td>
+                        <td>Jeunes couples, travailleurs</td>
+                      </tr>
+                      <tr>
+                        <td>F3</td>
+                        <td>80-100 m²</td>
+                        <td>12-15M CFA</td>
+                        <td>18-22M CFA</td>
+                        <td>120k-150k</td>
+                        <td>Familles moyennes, diaspora</td>
+                      </tr>
+                      <tr>
+                        <td>F4</td>
+                        <td>100-120 m²</td>
+                        <td>18-22M CFA</td>
+                        <td>25-30M CFA</td>
+                        <td>180k-220k</td>
+                        <td>Familles nombreuses, cadres</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                
+                <div class="tab-pane fade" id="commerces" role="tabpanel">
+                  <h5>Magasins commerciaux</h5>
+                  <ul>
+                    <li>Superficie : 15-25 m² par boutique</li>
+                    <li>Coût : 4-5M CFA</li>
+                    <li>Vente : 6-8M CFA</li>
+                    <li>Location : 40k-70k CFA/mois</li>
+                    <li>Public cible : commerçants, artisans, services de proximité</li>
+                  </ul>
+                  <p>Les commerces de proximité augmentent l'attractivité de la mini-cité et génèrent des revenus locatifs stables.</p>
+                </div>
+                
+                <div class="tab-pane fade" id="mix" role="tabpanel">
+                  <h5>Stratégie de mix optimal</h5>
+                  <ul>
+                    <li>50% terrains vendus nus → cash rapide</li>
+                    <li>50% terrains construits : combinaison F1/F2 (location), F3/F4 (vente ou location), magasins (location)</li>
+                    <li>Maisons témoins (F2 + F3) servent de vitrine pour attirer clients</li>
+                  </ul>
+                  <div class="chart-container mt-4">
+                    <div class="chart-placeholder">
+                      <p>Graphique: Répartition investissements et revenus</p>
+                      <ul>
+                        <li>Terrains nus 25%</li>
+                        <li>F1/F2 20%</li>
+                        <li>F3/F4 40%</li>
+                        <li>Magasins 15%</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card investment-card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-cash-coin me-2"></i>
+              <h5 class="mb-0">Exemple chiffré sur 4 terrains</h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th>Type d'investissement</th>
+                    <th>Investissement</th>
+                    <th>Revenus estimés</th>
+                    <th>Bénéfice net</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2 terrains nus</td>
+                    <td>-</td>
+                    <td>14M CFA</td>
+                    <td>+14M CFA</td>
+                  </tr>
+                  <tr>
+                    <td>2 terrains construits</td>
+                    <td>57M CFA</td>
+                    <td>80M CFA</td>
+                    <td>+23M CFA</td>
+                  </tr>
+                  <tr class="table-success fw-bold">
+                    <td>Total</td>
+                    <td>61M CFA</td>
+                    <td>94M CFA</td>
+                    <td>33M CFA</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="mt-3">Temps estimé : 12-18 mois</p>
+              <p>Flux combiné : vente terrains + maisons + location magasins</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card investment-card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-graph-up-arrow me-2"></i>
+              <h5 class="mb-0">Atouts de la diversification</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Segmentation marché : étudiants, jeunes couples, familles, commerçants</li>
+                <li class="list-group-item">Flexibilité : vente ou location selon demande</li>
+                <li class="list-group-item">Revenu passif durable : location F1/F2/magasins</li>
+                <li class="list-group-item">Valorisation projet : mini-cité mixte = pôle attractif et autonome</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="simulations" class="mb-5">
+      <h2 class="text-center mb-4">Simulations financières</h2>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="simulation-container">
+            <h3 class="mb-4"><i class="bi bi-calculator me-2"></i>Calculateur de rentabilité</h3>
+            
+            <div class="mb-3">
+              <label class="form-label">Nombre de terrains :</label>
+              <input type="range" class="form-range" min="2" max="10" step="1" id="terrainCount" value="4">
+              <div class="d-flex justify-content-between">
+                <span>2</span>
+                <span id="terrainCountValue">4</span>
+                <span>10</span>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Pourcentage de terrains construits :</label>
+              <input type="range" class="form-range" min="0" max="100" step="10" id="constructionPercent" value="50">
+              <div class="d-flex justify-content-between">
+                <span>0%</span>
+                <span id="constructionPercentValue">50%</span>
+                <span>100%</span>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Ratio location/vente :</label>
+              <input type="range" class="form-range" min="0" max="100" step="10" id="rentalRatio" value="30">
+              <div class="d-flex justify-content-between">
+                <span>0%</span>
+                <span id="rentalRatioValue">30%</span>
+                <span>100%</span>
+              </div>
+            </div>
+            
+            <button class="btn btn-primary w-100" onclick="calculateROI()">
+              <i class="bi bi-calculator me-1"></i>Calculer la rentabilité
+            </button>
+            
+            <div class="mt-4" id="simulationResults" style="display: none;">
+              <h5>Résultats de la simulation</h5>
+              <table class="table table-sm">
+                <tr>
+                  <td>Investissement total</td>
+                  <td id="totalInvestment" class="fw-bold">0 CFA</td>
+                </tr>
+                <tr>
+                  <td>Revenus totaux</td>
+                  <td id="totalRevenue" class="fw-bold">0 CFA</td>
+                </tr>
+                <tr class="table-success">
+                  <td>Bénéfice net</td>
+                  <td id="netProfit" class="fw-bold">0 CFA</td>
+                </tr>
+                <tr>
+                  <td>ROI</td>
+                  <td id="roiValue" class="fw-bold">0%</td>
+                </tr>
+                <tr>
+                  <td>Durée estimée</td>
+                  <td id="duration" class="fw-bold">12-18 mois</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="simulation-container">
+            <h3 class="mb-4"><i class="bi bi-bar-chart me-2"></i>Visualisation des revenus</h3>
+            
+            <div class="chart-container">
+              <div class="chart-placeholder">
+                <p>Graphique interactif montrant la répartition des revenus</p>
+                <ul>
+                  <li>Vente terrains: XX%</li>
+                  <li>Vente logements: XX%</li>
+                  <li>Location logements: XX%</li>
+                  <li>Location commerces: XX%</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="mt-4">
+              <h5>Projection de cash-flow</h5>
+              <div class="chart-container" style="height: 200px;">
+                <div class="chart-placeholder">
+                  <p>Graphique: Évolution des flux de trésorerie sur 24 mois</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="etapes" class="mb-5">
+      <h2 class="text-center mb-4">Étapes clés du projet</h2>
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <h4>Mois 1-2 : Acquisition des terrains</h4>
+          <p>Identification et achat de 2-4 terrains dans des lotissements approuvés. Collaboration avec notaire et géomètre pour sécuriser les transactions.</p>
+        </div>
+        
+        <div class="timeline-item">
+          <h4>Mois 3-10 : Régularisation administrative</h4>
+          <p>Obtention de l'ACD (Autorisation de Construire et Démolir) et de tous les documents légaux nécessaires. Suivi foncier rigoureux.</p>
+        </div>
+        
+        <div class="timeline-item">
+          <h4>Mois 11 : Pré-développement</h4>
+          <p>Réalisation des études techniques : voirie, eau, électricité. Préparation du terrain pour les constructions.</p>
+        </div>
+        
+        <div class="timeline-item">
+          <h4>Mois 12 : Construction de base</h4>
+          <p>Construction de la clôture et de 1-2 maisons témoins. Début de la commercialisation.</p>
+        </div>
+        
+        <div class="timeline-item">
+          <h4>Mois 13-18 : Développement complet</h4>
+          <p>Construction des logements et commerces selon la stratégie de diversification. Finalisation de la mini-cité.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="avantages" class="mb-5">
+      <h2 class="text-center mb-4">Avantages du modèle</h2>
+      
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 text-center">
+            <div class="card-body">
+              <i class="bi bi-shield-check fs-1 text-success"></i>
+              <h5 class="mt-3">Résilience</h5>
+              <p>Plan B intégré avec possibilité de bornage/clôture en cas de retard administratif. Anticipation des litiges avec les autorités locales.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100 text-center">
+            <div class="card-body">
+              <i class="bi bi-repeat fs-1 text-success"></i>
+              <h5 class="mt-3">Réplicabilité</h5>
+              <p>Modèle conçu pour être reproduit dans différentes villes secondaires de Côte d'Ivoire. Processus standardisé pour une mise en œuvre efficace.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100 text-center">
+            <div class="card-body">
+              <i class="bi bi-people fs-1 text-success"></i>
+              <h5 class="mt-3">Impact social</h5>
+              <p>Réponse à la crise du logement en Côte d'Ivoire. Création d'emplois locaux pendant et après la construction. Développement des villes secondaires.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="mb-5">
+      <h2 class="text-center mb-4">Contactez-nous</h2>
+      
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card">
+            <div class="card-header text-center">
+              <h5 class="mb-0">Intéressé par notre stratégie d'investissement?</h5>
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="mb-3">
+                  <label for="name" class="form-label">Nom complet</label>
+                  <input type="text" class="form-control" id="name" required>
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Téléphone</label>
+                  <input type="tel" class="form-control" id="phone">
+                </div>
+                <div class="mb-3">
+                  <label for="message" class="form-label">Message</label>
+                  <textarea class="form-control" id="message" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Envoyer</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container text-center">
+      <p class="mb-0">Mini-Cités Express - Stratégie 5R d'investissement immobilier en Côte d'Ivoire</p>
+      <p class="mb-0">© 2023 - Tous droits réservés</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Initialize sliders
+    document.getElementById('terrainCount').addEventListener('input', function() {
+      document.getElementById('terrainCountValue').textContent = this.value;
+    });
+    
+    document.getElementById('constructionPercent').addEventListener('input', function() {
+      document.getElementById('constructionPercentValue').textContent = this.value + '%';
+    });
+    
+    document.getElementById('rentalRatio').addEventListener('input', function() {
+      document.getElementById('rentalRatioValue').textContent = this.value + '%';
+    });
+    
+    // Calculate ROI function
+    function calculateROI() {
+      const terrainCount = parseInt(document.getElementById('terrainCount').value);
+      const constructionPercent = parseInt(document.getElementById('constructionPercent').value);
+      const rentalRatio = parseInt(document.getElementById('rentalRatio').value);
+      
+      // Calculation logic based on the provided data
+      const terrainsToSell = Math.floor(terrainCount * (100 - constructionPercent) / 100);
+      const terrainsToBuild = terrainCount - terrainsToSell;
+      
+      // Revenue from selling empty terrains
+      const revenueFromEmptyTerrains = terrainsToSell * 7000000; // 7M average per terrain
+      
+      // Investment in construction
+      const constructionInvestment = terrainsToBuild * 28500000; // ~28.5M per built terrain
+      
+      // Revenue from built properties (mix of sales and rentals)
+      const builtRevenue = terrainsToBuild * 40000000; // ~40M average per built terrain
+      
+      // Total investment
+      const terrainInvestment = terrainCount * 4000000; // 4M per terrain
+      const totalInvestment = terrainInvestment + constructionInvestment;
+      
+      // Total revenue
+      const totalRevenue = revenueFromEmptyTerrains + builtRevenue;
+      
+      // Net profit
+      const netProfit = totalRevenue - totalInvestment;
+      
+      // ROI
+      const roi = (netProfit / totalInvestment) * 100;
+      
+      // Update the UI
+      document.getElementById('totalInvestment').textContent = formatCFA(totalInvestment);
+      document.getElementById('totalRevenue').textContent = formatCFA(totalRevenue);
+      document.getElementById('netProfit').textContent = formatCFA(netProfit);
+      document.getElementById('roiValue').textContent = roi.toFixed(1) + '%';
+      
+      // Show results
+      document.getElementById('simulationResults').style.display = 'block';
+    }
+    
+    // Format CFA currency
+    function formatCFA(amount) {
+      return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'XOF' }).format(amount);
+    }
+  </script>
+</body>
+</html>
