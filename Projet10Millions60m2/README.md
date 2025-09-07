@@ -21,6 +21,8 @@
 *   **Salle d'eau complète** et WC indépendants.
 *   **Terrasse couverte** avec auvent structurel.
 
+![Plan  Face Maison](https://github.com/sanogotech/maisonlowcostbooster/blob/main/images/PlanFaceMaison.png)
+
 **Légende du Plan :**
 *   `🚪` Porte
 *   `🪟` Fenêtre
