@@ -6,6 +6,8 @@
 **Dimensions :** 11.00 m (Largeur) x 5.50 m (Longueur) + Terrasse de 2m de profondeur
 **Orientation recommandée :** Sud
 
+- Etude de cas : Comment j’ai réussi à construire cette villa moderne avec 8 millions de Fcfa ! / Stéphane Kakou
+
 - https://youtu.be/1JpusWcHxmw?si=X76BP4acFkTXeiDL
 
 ---
