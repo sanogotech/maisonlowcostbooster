@@ -90,6 +90,12 @@
 | **WC Indépendants** | ~2.5 m² | WC suspendu, lave-mains | Finition haut de gamme. |
 | **Terrasse Couverte**| 22 m² | Auvent structurel, carrelage extérieur | Terrasse plus grande et mieux finie. |
 
+
+
+
+
+![Plan de Haut 2D](https://github.com/sanogotech/maisonlowcostbooster/blob/main/images/PlanHautInterieurPieces.png)
+
 ---
 
 ### **3. VENTILATION DÉtaillée du BUDGET (10 000 000 FCFA)**
