@@ -6,6 +6,8 @@
 **Dimensions :** 11.00 m (Largeur) x 5.50 m (Longueur) + Terrasse de 2m de profondeur
 **Orientation recommandée :** Sud
 
+- https://youtu.be/1JpusWcHxmw?si=X76BP4acFkTXeiDL
+
 ---
 
 ### **1. PLAN & DESCRIPTION ARCHITECTURALE**
