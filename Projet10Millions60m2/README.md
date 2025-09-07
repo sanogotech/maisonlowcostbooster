@@ -35,6 +35,8 @@
 
 ```
 
+![Plan 2D](https://github.com/sanogotech/maisonlowcostbooster/blob/main/images/PlanMaison50m2_8Millions.png))
+
 
                                (Nord / Rue)
 +-----------------------------------------------------------------+
