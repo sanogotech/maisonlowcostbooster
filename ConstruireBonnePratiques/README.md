@@ -4,6 +4,9 @@ Construire une maison, c’est un projet de vie.
 Mais **61 erreurs** peuvent transformer ce rêve en cauchemar.  
 Voici le guide complet, classé par catégories, avec erreurs, conséquences et conseils.  
 
+-  Ne construisez JAMAIS sans voir ces 10 erreurs fatales en Côte d’Ivoire !
+- https://youtu.be/plU260pntzU?si=u8rh0MwVn7TQf1dC
+
 ---
 
 ## 🏠 Conception & Orientation (1–15)
