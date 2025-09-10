@@ -107,9 +107,39 @@ Voici le guide complet, classé par catégories, avec erreurs, conséquences et 
 
 ---
 
-## ✅ Conclusion
+## 📌 Retours d’Expérience (REX)
 
-Ces **61 erreurs fatales** montrent qu’en Côte d’Ivoire, construire ne se limite pas à poser des briques.  
+1. Un voisin a bâti sans étude de sol → sa maison a fissuré dès la 2ᵉ saison des pluies.  
+2. Une famille a oublié d’intégrer une buanderie → machine posée dehors, vite rouillée.  
+3. Un chantier a utilisé sable marin → béton poreux au bout de 2 ans.  
+4. Un propriétaire a ignoré le permis de bâtir → son mur a été détruit par la mairie.  
+5. Maison construite sans chaînage → fissures après le premier tremblement de terre.  
+6. Escaliers sans rambarde → chute d’un enfant, accident grave.  
+7. Budget mal évalué → maison restée inachevée 5 ans.  
+8. Terrain mal nivelé → cour inondée à chaque pluie.  
+9. Toiture sans pente suffisante → infiltrations continues.  
+10. Electricité posée sans gaine → incendie après court-circuit.  
+
+---
+
+## ✅ Recommandations Pratiques
+
+1. Toujours réaliser une **étude de sol** avant de lancer les travaux.  
+2. Prévoir un **architecte et un ingénieur** pour valider les plans.  
+3. Vérifier la **qualité des matériaux** (fer, ciment, sable).  
+4. Construire en tenant compte de **l’orientation soleil/vent**.  
+5. Surélever les fondations d’au moins **60 cm**.  
+6. Signer des **contrats clairs avec les artisans**.  
+7. Intégrer une **ventilation naturelle** avant de penser à la climatisation.  
+8. Sécuriser avec une **clôture et un portail** dès le début.  
+9. Prévoir un **budget d’imprévus (10–15%)**.  
+10. Faire un **entretien annuel** (toiture, peinture, canalisations).  
+
+---
+
+## 🏁 Conclusion
+
+Ces **61 erreurs fatales + 10 REX + 10 recommandations** montrent qu’en Côte d’Ivoire, construire ne se limite pas à poser des briques.  
 Il faut penser **orientation, fondations, ventilation, légalité, budget et durabilité**.  
 
-⚡ **Éviter ces erreurs, c’est gagner en confort, sécurité et économies sur le long terme.**
+⚡ **Éviter ces erreurs, s’inspirer des REX, appliquer les recommandations : c’est garantir une maison solide, confortable et durable.**
