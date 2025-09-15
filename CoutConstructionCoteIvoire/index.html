@@ -1,878 +1,2163 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portail Construction Côte d'Ivoire</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <style>
-    :root {
-      --primary-color: #2c3e50;
-      --secondary-color: #3498db;
-      --accent-color: #e74c3c;
-      --light-bg: #f8f9fa;
-      --dark-bg: #343a40;
-      --construction-orange: #ff7f2a;
-      --ivory-blue: #4d8af0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Construction Côte d'Ivoire - Simulation de Coûts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-bg: #343a40;
+            --construction-orange: #ff7f2a;
+            --ivory-blue: #4d8af0;
+            --ivory-green: #27ae60;
+            --ivory-gold: #f39c12;
+        }
 
-    body {
-      background-color: var(--light-bg);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
 
-    .navbar {
-      background-color: var(--primary-color);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
+        .navbar {
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
 
-    .navbar-brand {
-      font-weight: 700;
-      color: white;
-    }
+        .navbar-brand {
+            font-weight: 700;
+            color: white;
+        }
 
-    .hero-section {
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--ivory-blue) 100%);
-      color: white;
-      padding: 4rem 0;
-      margin-bottom: 3rem;
-      border-radius: 0 0 20px 20px;
-    }
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--ivory-blue) 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+            border-radius: 0 0 20px 20px;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .card {
-      border: none;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-      height: 100%;
-    }
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.05"><rect x="0" y="0" width="100" height="100" fill="white"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="black" stroke-width="1"/></svg>');
+            opacity: 0.1;
+        }
 
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    }
+        .card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
 
-    .card-header {
-      background-color: var(--primary-color);
-      color: white;
-      font-weight: 600;
-    }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
 
-    .module-icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: var(--secondary-color);
-    }
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
 
-    .btn-primary {
-      background-color: var(--ivory-blue);
-      border: none;
-    }
+        .module-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
 
-    .btn-primary:hover {
-      background-color: #3a7bd5;
-    }
+        .btn-primary {
+            background-color: var(--ivory-blue);
+            border: none;
+        }
 
-    .btn-construction {
-      background-color: var(--construction-orange);
-      color: white;
-    }
+        .btn-primary:hover {
+            background-color: #3a7bd5;
+        }
 
-    .btn-construction:hover {
-      background-color: #e66a1a;
-      color: white;
-    }
+        .btn-construction {
+            background-color: var(--construction-orange);
+            color: white;
+        }
 
-    .btn-outline-primary {
-      color: var(--ivory-blue);
-      border-color: var(--ivory-blue);
-    }
+        .btn-construction:hover {
+            background-color: #e66a1a;
+            color: white;
+        }
 
-    .btn-outline-primary:hover {
-      background-color: var(--ivory-blue);
-      color: white;
-    }
+        .btn-outline-primary {
+            color: var(--ivory-blue);
+            border-color: var(--ivory-blue);
+        }
 
-    .simulation-container {
-      background-color: white;
-      border-radius: 10px;
-      padding: 2rem;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      margin-bottom: 2rem;
-    }
+        .btn-outline-primary:hover {
+            background-color: var(--ivory-blue);
+            color: white;
+        }
 
-    .process-step {
-      position: relative;
-      padding-left: 30px;
-      margin-bottom: 20px;
-    }
+        .simulation-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
 
-    .process-step:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 20px;
-      height: 20px;
-      background-color: var(--ivory-blue);
-      border-radius: 50%;
-    }
+        .process-step {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
 
-    .process-step:after {
-      content: "";
-      position: absolute;
-      left: 9px;
-      top: 20px;
-      width: 2px;
-      height: 100%;
-      background-color: var(--ivory-blue);
-    }
+        .process-step:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background-color: var(--ivory-blue);
+            border-radius: 50%;
+        }
 
-    .process-step:last-child:after {
-      display: none;
-    }
+        .process-step:after {
+            content: "";
+            position: absolute;
+            left: 9px;
+            top: 20px;
+            width: 2px;
+            height: 100%;
+            background-color: var(--ivory-blue);
+        }
 
-    .data-table {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
+        .process-step:last-child:after {
+            display: none;
+        }
 
-    .data-table th {
-      background-color: var(--primary-color);
-      color: white;
-    }
+        .data-table {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
 
-    .highlight-box {
-      background-color: rgba(77, 138, 240, 0.1);
-      border-left: 4px solid var(--ivory-blue);
-      padding: 1rem;
-      margin: 1rem 0;
-      border-radius: 0 5px 5px 0;
-    }
+        .data-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
 
-    .construction-highlight {
-      background-color: rgba(255, 127, 42, 0.1);
-      border-left: 4px solid var(--construction-orange);
-    }
+        .highlight-box {
+            background-color: rgba(77, 138, 240, 0.1);
+            border-left: 4px solid var(--ivory-blue);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+        }
 
-    .linked-modules {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
+        .construction-highlight {
+            background-color: rgba(255, 127, 42, 0.1);
+            border-left: 4px solid var(--construction-orange);
+        }
 
-    .linked-module {
-      background-color: var(--light-bg);
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      color: var(--primary-color);
-      border: 1px solid #ddd;
-    }
+        .linked-modules {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
 
-    .tab-content {
-      padding: 1.5rem 0;
-    }
+        .linked-module {
+            background-color: var(--light-bg);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            border: 1px solid #ddd;
+        }
 
-    footer {
-      background-color: var(--dark-bg);
-      color: white;
-      padding: 2rem 0;
-      margin-top: 3rem;
-    }
+        .tab-content {
+            padding: 1.5rem 0;
+        }
 
-    /* Animation pour les cartes */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
 
-    .module-card {
-      animation: fadeIn 0.5s ease forwards;
-      opacity: 0;
-    }
+        /* Animation pour les cartes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    /* Délai d'animation pour chaque carte */
-    .module-card:nth-child(1) { animation-delay: 0.1s; }
-    .module-card:nth-child(2) { animation-delay: 0.2s; }
-    .module-card:nth-child(3) { animation-delay: 0.3s; }
-    .module-card:nth-child(4) { animation-delay: 0.4s; }
-    .module-card:nth-child(5) { animation-delay: 0.5s; }
-    .module-card:nth-child(6) { animation-delay: 0.6s; }
-    .module-card:nth-child(7) { animation-delay: 0.7s; }
+        .module-card {
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
 
-    /* Cost calculator styles */
-    .cost-calculator {
-      display: flex;
-      gap: 1rem;
-      overflow-x: auto;
-      padding-bottom: 1rem;
-    }
+        /* Délai d'animation pour chaque carte */
+        .module-card:nth-child(1) { animation-delay: 0.1s; }
+        .module-card:nth-child(2) { animation-delay: 0.2s; }
+        .module-card:nth-child(3) { animation-delay: 0.3s; }
+        .module-card:nth-child(4) { animation-delay: 0.4s; }
+        .module-card:nth-child(5) { animation-delay: 0.5s; }
+        .module-card:nth-child(6) { animation-delay: 0.6s; }
+        .module-card:nth-child(7) { animation-delay: 0.7s; }
 
-    .cost-column {
-      min-width: 250px;
-      background-color: #f8f9fa;
-      border-radius: 8px;
-      padding: 1rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+        /* Cost calculator styles */
+        .cost-calculator {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
 
-    .cost-column-header {
-      font-weight: bold;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-      border-bottom: 2px solid #ddd;
-      text-align: center;
-    }
+        .cost-column {
+            min-width: 250px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-    .cost-card {
-      background-color: white;
-      border-radius: 6px;
-      padding: 0.75rem;
-      margin-bottom: 0.75rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
+        .cost-column-header {
+            font-weight: bold;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #ddd;
+            text-align: center;
+        }
 
-    .cost-card h6 {
-      margin-bottom: 0.5rem;
-    }
+        .cost-card {
+            background-color: white;
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
 
-    .cost-card p {
-      font-size: 0.85rem;
-      margin-bottom: 0.5rem;
-    }
+        .cost-card h6 {
+            margin-bottom: 0.5rem;
+        }
 
-    .cost-card .badge {
-      font-size: 0.7rem;
-    }
+        .cost-card p {
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
 
-    .budget-chart {
-      background-color: white;
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      height: 300px;
-      position: relative;
-    }
+        .cost-card .badge {
+            font-size: 0.7rem;
+        }
 
-    .chart-placeholder {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      color: #666;
-      font-style: italic;
-    }
+        .budget-chart {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: 300px;
+            position: relative;
+        }
 
-    .price-tag {
-      font-weight: bold;
-      color: var(--construction-orange);
-    }
+        .chart-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #666;
+            font-style: italic;
+        }
 
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .hero-section {
-        padding: 2rem 0;
-      }
+        .price-tag {
+            font-weight: bold;
+            color: var(--construction-orange);
+        }
 
-      .module-icon {
-        font-size: 1.5rem;
-      }
+        .material-card {
+            border-left: 4px solid var(--ivory-green);
+        }
 
-      .cost-calculator {
-        flex-direction: column;
-      }
+        .region-card {
+            border-left: 4px solid var(--ivory-blue);
+        }
 
-      .cost-column {
-        min-width: 100%;
-      }
-    }
-  </style>
+        .tip-card {
+            border-left: 4px solid var(--ivory-gold);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--construction-orange);
+        }
+
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 2rem 0;
+            }
+
+            .module-icon {
+                font-size: 1.5rem;
+            }
+
+            .cost-calculator {
+                flex-direction: column;
+            }
+
+            .cost-column {
+                min-width: 100%;
+            }
+            
+            .stat-number {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark mb-4">
-    <div class="container">
-      <a class="navbar-brand" href="#">
-        <i class="bi bi-house me-2"></i>Portail Construction Côte d'Ivoire
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link active" href="#introduction">Introduction</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#composants">Composants</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#simulations">Simulations</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#comparaison">Comparaison</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#conseils">Conseils</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#ressources">Ressources</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <section class="hero-section">
-    <div class="container text-center">
-      <h1 class="display-4 fw-bold mb-3">Coût de construction d'une maison en Côte d'Ivoire</h1>
-      <p class="lead mb-4">Estimez votre budget de construction par m² selon le type de matériaux et le standing recherché</p>
-      <div class="d-flex justify-content-center gap-3">
-        <a href="#simulations" class="btn btn-light btn-lg px-4">Calculer mon budget</a>
-        <a href="#composants" class="btn btn-outline-light btn-lg px-4">Voir les détails</a>
-      </div>
-    </div>
-  </section>
-
-  <div class="container mb-5">
-    <section class="mb-5">
-      <div class="row">
-        <div class="col-lg-8 mx-auto text-center">
-          <h2 class="mb-4">Pourquoi bien estimer son budget de construction ?</h2>
-          <p class="lead">En Côte d'Ivoire, le prix d'une construction varie selon le type de matériaux, la qualité du sol, le standing recherché, la main-d'œuvre et la zone géographique.</p>
-          <div class="d-flex justify-content-center mt-4">
-            <div class="px-4 text-center">
-              <i class="bi bi-bricks fs-1 text-primary"></i>
-              <p class="mt-2 fw-bold">Matériaux</p>
-            </div>
-            <div class="px-4 text-center">
-              <i class="bi bi-geo-alt fs-1 text-primary"></i>
-              <p class="mt-2 fw-bold">Sols</p>
-            </div>
-            <div class="px-4 text-center">
-              <i class="bi bi-star fs-1 text-primary"></i>
-              <p class="mt-2 fw-bold">Standing</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="introduction" class="mb-5">
-      <h2 class="text-center mb-4">Introduction</h2>
-      
-      <div class="row mb-4">
-        <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-header d-flex align-items-center">
-              <i class="bi bi-info-circle me-2"></i>
-              <h5 class="mb-0">Environnement de construction</h5>
-            </div>
-            <div class="card-body">
-              <p>En Côte d'Ivoire, le coût de construction d'une maison varie selon plusieurs facteurs :</p>
-              <div class="highlight-box">
-                <ul>
-                  <li>Le <strong>type de matériaux</strong> (parpaing ciment vs BTC)</li>
-                  <li>La <strong>qualité du sol</strong> (fondations plus ou moins profondes)</li>
-                  <li>Le <strong>standing</strong> recherché (économique, standard, haut de gamme)</li>
-                  <li>La <strong>main-d'œuvre</strong> et la <strong>zone géographique</strong></li>
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-house me-2"></i>Guide Construction Côte d'Ivoire
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#introduction">Introduction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#composants">Composants</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#simulateur">Simulateur</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#materiaux">Matériaux</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#regional">Régional</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#conseils">Conseils</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ressources">Ressources</a>
+                    </li>
                 </ul>
-              </div>
-              <p class="mt-3">En moyenne, une maison coûte entre <span class="price-tag">150 000 FCFA</span> et <span class="price-tag">300 000 FCFA / m²</span> construit.</p>
             </div>
-          </div>
         </div>
-        
-        <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-header d-flex align-items-center">
-              <i class="bi bi-lightbulb me-2"></i>
-              <h5 class="mb-0">Alternative BTC</h5>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-3">Coût de construction d'une maison en Côte d'Ivoire</h1>
+            <p class="lead mb-4">Guide complet et simulateur de budget pour votre projet de construction</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="#simulateur" class="btn btn-light btn-lg px-4">
+                    <i class="bi bi-calculator me-2"></i>Simuler mon budget
+                </a>
+                <a href="#composants" class="btn btn-outline-light btn-lg px-4">
+                    <i class="bi bi-journal-bookmark me-2"></i>Guide des coûts
+                </a>
+                <a href="#materiaux" class="btn btn-outline-light btn-lg px-4">
+                    <i class="bi bi-bricks me-2"></i>Comparer les matériaux
+                </a>
             </div>
-            <div class="card-body">
-              <p>Les <strong>maisons en BTC</strong> (Brique de Terre Comprimée) offrent une bonne alternative écologique et économique :</p>
-              <div class="linked-modules">
-                <span class="linked-module">Écologique</span>
-                <span class="linked-module">Économique</span>
-                <span class="linked-module">Performance thermique</span>
-              </div>
-              <p class="mt-3">Une brique BTC pèse 8 à 12 kg (plus lourd qu'un parpaing) mais est pleine et très compacte, supportant mieux les charges verticales.</p>
-              <button class="btn btn-primary btn-sm mt-2" onclick="showDetails('btc')">
-                <i class="bi bi-info-circle me-1"></i>En savoir plus sur le BTC
-              </button>
-            </div>
-          </div>
         </div>
-      </div>
     </section>
 
-    <section id="composants" class="mb-5">
-      <h2 class="text-center mb-4">Composants du coût de construction</h2>
-      
-      <div class="row">
-        <div class="col-md-6 col-lg-3">
-          <div class="card h-100">
-            <div class="card-header d-flex align-items-center">
-              <i class="bi bi-bricks me-2"></i>
-              <h5 class="mb-0">Fondations</h5>
+    <div class="container mb-5">
+        <!-- Section Statistiques -->
+        <section class="mb-5">
+            <div class="row text-center">
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card h-100 py-3">
+                        <div class="card-body">
+                            <i class="bi bi-currency-exchange fs-1 text-primary mb-2"></i>
+                            <div class="stat-number">150k-300k</div>
+                            <p class="mb-0">FCFA/m²</p>
+                            <small>Coût moyen selon standing</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card h-100 py-3">
+                        <div class="card-body">
+                            <i class="bi bi-house fs-1 text-primary mb-2"></i>
+                            <div class="stat-number">15-25%</div>
+                            <p class="mb-0">Fondations</p>
+                            <small>Part du budget total</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card h-100 py-3">
+                        <div class="card-body">
+                            <i class="bi bi-tree fs-1 text-primary mb-2"></i>
+                            <div class="stat-number">10-15%</div>
+                            <p class="mb-0">Économie BTC</p>
+                            <small>Comparé au parpaing</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card h-100 py-3">
+                        <div class="card-body">
+                            <i class="bi bi-geo-alt fs-1 text-primary mb-2"></i>
+                            <div class="stat-number">20-30%</div>
+                            <p class="mb-0">Variation régionale</p>
+                            <small>Abidjan vs régions</small>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-              <p>Représentent environ <strong>15 à 25%</strong> du coût global.</p>
-              <ul>
-                <li>Économique: <span class="price-tag">15-20k FCFA/m²</span></li>
-                <li>Standard: <span class="price-tag">20-30k FCFA/m²</span></li>
-                <li>Renforcé: <span class="price-tag">30-40k FCFA/m²</span></li>
-                <li>Confort: <span class="price-tag">40-50k FCFA/m²</span></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        
-        <div class="col-md-6 col-lg-3">
-          <div class="card h-100">
-            <div class="card-header d-flex align-items-center">
-              <i class="bi bi-building me-2"></i>
-              <h5 class="mb-0">Élévation</h5>
-            </div>
-            <div class="card-body">
-              <p>Varie selon le type de blocs utilisés.</p>
-              <ul>
-                <li>Parpaing ciment: <span class="price-tag">30-40k FCFA/m²</span></li>
-                <li>BTC: <span class="price-tag">25-35k FCFA/m²</span></li>
-                <li>Qualité renforcée: <span class="price-tag">40-50k FCFA/m²</span></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        
-        <div class="col-md-6 col-lg-3">
-          <div class="card h-100">
-            <div class="card-header d-flex align-items-center">
-              <i class="bi bi-house me-2"></i>
-              <h5 class="mb-0">Toiture</h5>
-            </div>
-            <div class="card-body">
-              <p>Environ <strong>20 à 25%</strong> du coût global.</p>
-              <ul>
-                <li>Bois + tôles: <span class="price-tag">25-35k FCFA/m²</span></li>
-                <li>Bois + tuiles: <span class="price-tag">35-50k FCFA/m²</span></li>
-                <li>Dalle béton: <span class="price-tag">40-60k FCFA/m²</span></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        
-        <div class="col-md-6 col-lg-3">
-          <div class="card h-100">
-            <div class="card-header d-flex align-items-center">
-              <i class="bi bi-brush me-2"></i>
-              <h5 class="mb-0">Finition</h5>
-            </div>
-            <div class="card-body">
-              <p>Varie selon le standing recherché.</p>
-              <ul>
-                <li>Économique: <span class="price-tag">25-35k FCFA/m²</span></li>
-                <li>Standard: <span class="price-tag">35-50k FCFA/m²</span></li>
-                <li>Haut de gamme: <span class="price-tag">50-75k FCFA/m²</span></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <section id="simulations" class="mb-5">
-      <h2 class="text-center mb-4">Simulateur de coût de construction</h2>
-      
-      <div class="simulation-container">
-        <div class="row mb-4">
-          <div class="col-md-6">
-            <h4>Paramètres de construction</h4>
-            <div class="mb-3">
-              <label class="form-label">Surface à construire (m²)</label>
-              <input type="range" class="form-range" min="50" max="300" value="120" id="surfaceRange">
-              <div class="d-flex justify-content-between">
-                <span>50 m²</span>
-                <span id="surfaceValue">120 m²</span>
-                <span>300 m²</span>
-              </div>
+        <!-- Section Introduction -->
+        <section id="introduction" class="mb-5">
+            <h2 class="text-center mb-4">Introduction à la construction en Côte d'Ivoire</h2>
+            
+            <div class="row mb-4">
+                <div class="col-lg-6">
+                    <div class="card h-100">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <h5 class="mb-0">Contexte de construction</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Le marché de la construction en Côte d'Ivoire a connu une croissance significative ces dernières années, avec une demande accrue en logements due à l'urbanisation et à la croissance démographique.</p>
+                            <div class="highlight-box">
+                                <p><strong>Facteurs influençant les coûts :</strong></p>
+                                <ul>
+                                    <li><strong>Type de matériaux</strong> : Parpaing ciment vs BTC (Brique de Terre Comprimée)</li>
+                                    <li><strong>Qualité du sol</strong> : Nature du terrain et profondeur des fondations nécessaires</li>
+                                    <li><strong>Standing</strong> : Économique, standard, confort ou haut de gamme</li>
+                                    <li><strong>Main-d'œuvre</strong> : Qualification et disponibilité des artisans</li>
+                                    <li><strong>Zone géographique</strong> : Abidjan vs autres villes vs zones rurales</li>
+                                </ul>
+                            </div>
+                            <p class="mt-3">En moyenne, le coût de construction d'une maison varie entre <span class="price-tag">150 000 FCFA</span> et <span class="price-tag">300 000 FCFA / m²</span> selon le niveau de finition.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="card h-100">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-lightbulb me-2"></i>
+                            <h5 class="mb-0">Alternative BTC</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Les <strong>maisons en BTC</strong> (Brique de Terre Comprimée) représentent une alternative écologique et économique de plus en plus populaire :</p>
+                            <div class="linked-modules">
+                                <span class="linked-module">Écologique</span>
+                                <span class="linked-module">Économique</span>
+                                <span class="linked-module">Performance thermique</span>
+                                <span class="linked-module">Régulateur hygrométrique</span>
+                                <span class="linked-module">Matériau local</span>
+                            </div>
+                            <div class="construction-highlight highlight-box mt-3">
+                                <p><strong>Caractéristiques techniques :</strong></p>
+                                <ul>
+                                    <li>Poids : 8 à 12 kg par brique (plus lourd qu'un parpaing de 2,5 à 5 kg)</li>
+                                    <li>Structure pleine et compacte supportant mieux les charges verticales</li>
+                                    <li>Résistance mécanique comparable au parpaing traditionnel</li>
+                                    <li>Réduction de 30 à 50% de la consommation de ciment</li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-primary btn-sm mt-2" onclick="showDetails('btc')">
+                                <i class="bi bi-info-circle me-1"></i>En savoir plus sur le BTC
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class="mb-3">
-              <label class="form-label">Type de construction</label>
-              <select class="form-select" id="constructionType">
-                <option value="economique">Économique</option>
-                <option value="standard" selected>Standard</option>
-                <option value="haut-gamme">Haut de gamme</option>
-              </select>
+            <div class="card">
+                <div class="card-header d-flex align-items-center">
+                    <i class="bi bi-clock-history me-2"></i>
+                    <h5 class="mb-0">Évolution des coûts de construction</h5>
+                </div>
+                <div class="card-body">
+                    <p>Ces dernières années, les coûts de construction en Côte d'Ivoire ont connu une augmentation modérée, principalement due à :</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                <li>La fluctuation des prix des matériaux importés</li>
+                                <li>L'augmentation du coût de la main-d'œuvre qualifiée</li>
+                                <li>Les exigences réglementaires plus strictes</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li>La hausse des coûts des études techniques préalables</li>
+                                <li>Les variations saisonnières (périodes de pluie vs saison sèche)</li>
+                                <li>La demande croissante en matériaux écologiques</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="alert alert-info mt-3">
+                        <i class="bi bi-info-circle me-2"></i> Malgré ces augmentations, la Côte d'Ivoire reste un marché compétitif par rapport à d'autres pays de la sous-région, avec des coûts de construction raisonnables pour une qualité correcte.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Composants -->
+        <section id="composants" class="mb-5">
+            <h2 class="text-center mb-4">Composants détaillés du coût de construction</h2>
+            
+            <div class="row mb-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-bricks me-2"></i>
+                            <h5 class="mb-0">Fondations</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Représentent environ <strong>15 à 25%</strong> du coût global selon la nature du sol.</p>
+                            <ul>
+                                <li>Économique: <span class="price-tag">15-20k FCFA/m²</span></li>
+                                <li>Standard: <span class="price-tag">20-30k FCFA/m²</span></li>
+                                <li>Renforcé: <span class="price-tag">30-40k FCFA/m²</span></li>
+                                <li>Confort: <span class="price-tag">40-50k FCFA/m²</span></li>
+                            </ul>
+                            <div class="construction-highlight highlight-box mt-3">
+                                <p><strong>Éléments inclus :</strong></p>
+                                <ul class="small">
+                                    <li>Terrassement et déblai</li>
+                                    <li>Fouilles en rigoles</li>
+                                    <li>Béton de propreté</li>
+                                    <li>Ferraillage et semelles</li>
+                                    <li>Drainage périphérique</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-building me-2"></i>
+                            <h5 class="mb-0">Élévation des murs</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Varie selon le type de blocs utilisés et la complexité architecturale.</p>
+                            <ul>
+                                <li>Parpaing ciment: <span class="price-tag">30-40k FCFA/m²</span></li>
+                                <li>BTC: <span class="price-tag">25-35k FCFA/m²</span></li>
+                                <li>Qualité renforcée: <span class="price-tag">40-50k FCFA/m²</span></li>
+                                <li>Bloc à bancher: <span class="price-tag">45-60k FCFA/m²</span></li>
+                            </ul>
+                            <div class="construction-highlight highlight-box mt-3">
+                                <p><strong>Éléments inclus :</strong></p>
+                                <ul class="small">
+                                    <li>Maçonnerie de blocs</li>
+                                    <li>Chaînages horizontaux et verticaux</li>
+                                    <li>Enduit extérieur et intérieur</li>
+                                    <li>Réservations pour gaines</li>
+                                    <li>Jambages et linteaux</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-house me-2"></i>
+                            <h5 class="mb-0">Toiture et charpente</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Environ <strong>20 à 25%</strong> du coût global selon le type de couverture.</p>
+                            <ul>
+                                <li>Bois + tôles: <span class="price-tag">25-35k FCFA/m²</span></li>
+                                <li>Bois + tuiles: <span class="price-tag">35-50k FCFA/m²</span></li>
+                                <li>Dalle béton: <span class="price-tag">40-60k FCFA/m²</span></li>
+                                <li>Toiture terrasse: <span class="price-tag">50-70k FCFA/m²</span></li>
+                            </ul>
+                            <div class="construction-highlight highlight-box mt-3">
+                                <p><strong>Éléments inclus :</strong></p>
+                                <ul class="small">
+                                    <li>Charpente bois ou métallique</li>
+                                    <li>Couverture et accessoires</li>
+                                    <li>Isolation thermique</li>
+                                    <li>Évacuation des eaux pluviales</li>
+                                    <li>Sous-face et finitions</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-brush me-2"></i>
+                            <h5 class="mb-0">Finition et équipements</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Part la plus variable selon le standing recherché.</p>
+                            <ul>
+                                <li>Économique: <span class="price-tag">50-70k FCFA/m²</span></li>
+                                <li>Standard: <span class="price-tag">70-100k FCFA/m²</span></li>
+                                <li>Haut de gamme: <span class="price-tag">100-150k FCFA/m²</span></li>
+                                <li>Prestige: <span class="price-tag">150-250k FCFA/m²</span></li>
+                            </ul>
+                            <div class="construction-highlight highlight-box mt-3">
+                                <p><strong>Éléments inclus :</strong></p>
+                                <ul class="small">
+                                    <li>Plomberie et électricité</li>
+                                    <li>Carrelage et revêtements</li>
+                                    <li>Menuiseries intérieures et extérieures</li>
+                                    <li>Peinture et décoration</li>
+                                    <li>Équipements sanitaires et cuisine</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class="mb-3">
-              <label class="form-label">Matériau principal</label>
-              <select class="form-select" id="materialType">
-                <option value="parpaing">Parpaing ciment</option>
-                <option value="btc">BTC (Brique de Terre Comprimée)</option>
-              </select>
+            <div class="card mb-4">
+                <div class="card-header d-flex align-items-center">
+                    <i class="bi bi-clipboard-data me-2"></i>
+                    <h5 class="mb-0">Répartition typique des coûts pour une maison standard</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <canvas id="costDistributionChart" height="250"></canvas>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Poste</th>
+                                            <th>Pourcentage</th>
+                                            <th>Coût pour 100m²</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Fondations</td>
+                                            <td>18%</td>
+                                            <td>3 600 000 FCFA</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Élévation</td>
+                                            <td>27%</td>
+                                            <td>5 400 000 FCFA</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Toiture</td>
+                                            <td>20%</td>
+                                            <td>4 000 000 FCFA</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Finition</td>
+                                            <td>28%</td>
+                                            <td>5 600 000 FCFA</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Divers</td>
+                                            <td>7%</td>
+                                            <td>1 400 000 FCFA</td>
+                                        </tr>
+                                        <tr class="table-primary">
+                                            <th>Total</th>
+                                            <th>100%</th>
+                                            <th>20 000 000 FCFA</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          
-          <div class="col-md-6">
-            <h4>Résultats de simulation</h4>
-            <div class="budget-chart">
-              <div class="chart-placeholder">
-                <p>Graphique de répartition du budget</p>
-              </div>
+            
+            <div class="card">
+                <div class="card-header d-flex align-items-center">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    <h5 class="mb-0">Frais supplémentaires à prévoir</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Frais techniques et administratifs</h6>
+                            <ul>
+                                <li>Honoraires architecte (5-10% du coût travaux)</li>
+                                <li>Étude géotechnique (200 000 - 500 000 FCFA)</li>
+                                <li>Permis de construire (variable selon commune)</li>
+                                <li>Assurances (tous risques chantier, décennale)</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Imprévus et provisions</h6>
+                            <ul>
+                                <li>Contingence imprévus (10-15% du budget)</li>
+                                <li>Évolution des prix des matériaux</li>
+                                <li>Modifications en cours de chantier</li>
+                                <li>Déchets et nettoyage final</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="alert alert-warning mt-3">
+                        <i class="bi bi-lightbulb me-2"></i> Il est conseillé de prévoir une marge de sécurité de 10 à 15% du budget total pour faire face aux imprévus et modifications éventuelles.
+                    </div>
+                </div>
             </div>
-            <div class="text-center">
-              <h4>Coût estimé: <span id="totalCost" class="price-tag">24 000 000 FCFA</span></h4>
-              <p class="text-muted">Soit <span id="costPerM2" class="price-tag">200 000 FCFA/m²</span></p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="cost-calculator">
-          <div class="cost-column">
-            <div class="cost-column-header">Fondations</div>
-            <div class="cost-card">
-              <h6>Fondations standard</h6>
-              <p>Semelles filantes, ferraillage</p>
-              <div class="d-flex justify-content-between">
-                <span class="badge bg-primary">15%</span>
-                <span class="price-tag">3 600 000 FCFA</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="cost-column">
-            <div class="cost-column-header">Élévation</div>
-            <div class="cost-card">
-              <h6>Murs en parpaing</h6>
-              <p>Blocs de 15, enduit extérieur</p>
-              <div class="d-flex justify-content-between">
-                <span class="badge bg-primary">25%</span>
-                <span class="price-tag">6 000 000 FCFA</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="cost-column">
-            <div class="cost-column-header">Toiture</div>
-            <div class="cost-card">
-              <h6>Charpente + tôle</h6>
-              <p>Bois traité, tôle bac acier</p>
-              <div class="d-flex justify-content-between">
-                <span class="badge bg-primary">20%</span>
-                <span class="price-tag">4 800 000 FCFA</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="cost-column">
-            <div class="cost-column-header">Finition</div>
-            <div class="cost-card">
-              <h6>Finition standard</h6>
-              <p>Carrelage, peinture, électricité</p>
-              <div class="d-flex justify-content-between">
-                <span class="badge bg-primary">30%</span>
-                <span class="price-tag">7 200 000 FCFA</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="cost-column">
-            <div class="cost-column-header">Divers</div>
-            <div class="cost-card">
-              <h6>Main d'œuvre</h6>
-              <p>Maçons, électriciens, plombiers</p>
-              <div class="d-flex justify-content-between">
-                <span class="badge bg-primary">10%</span>
-                <span class="price-tag">2 400 000 FCFA</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <section id="comparaison" class="mb-5">
-      <h2 class="text-center mb-4">Comparaison des matériaux</h2>
-      
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-header d-flex align-items-center">
-              <i class="bi bi-bricks me-2"></i>
-              <h5 class="mb-0">Parpaing ciment</h5>
+        <!-- Section Simulateur -->
+        <section id="simulateur" class="mb-5">
+            <h2 class="text-center mb-4">Simulateur de coût de construction</h2>
+            
+            <div class="simulation-container">
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h4><i class="bi bi-sliders me-2"></i>Paramètres de construction</h4>
+                        <div class="mb-3">
+                            <label class="form-label">Surface à construire (m²)</label>
+                            <input type="range" class="form-range" min="50" max="500" value="120" id="surfaceRange">
+                            <div class="d-flex justify-content-between">
+                                <span>50 m²</span>
+                                <span id="surfaceValue">120 m²</span>
+                                <span>500 m²</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Type de construction</label>
+                            <select class="form-select" id="constructionType">
+                                <option value="economique">Économique (150k FCFA/m²)</option>
+                                <option value="standard" selected>Standard (200k FCFA/m²)</option>
+                                <option value="confort">Confort (250k FCFA/m²)</option>
+                                <option value="haut-gamme">Haut de gamme (300k FCFA/m²)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Matériau principal</label>
+                            <select class="form-select" id="materialType">
+                                <option value="parpaing">Parpaing ciment</option>
+                                <option value="btc">BTC (Brique de Terre Comprimée)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Région</label>
+                            <select class="form-select" id="regionType">
+                                <option value="abidjan">Abidjan (coût élevé)</option>
+                                <option value="ville" selected>Ville secondaire</option>
+                                <option value="rurale">Zone rurale (coût réduit)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="includeFees">
+                            <label class="form-check-label" for="includeFees">Inclure frais techniques et imprévus (+15%)</label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h4><i class="bi bi-pie-chart me-2"></i>Résultats de simulation</h4>
+                        <div class="budget-chart">
+                            <canvas id="budgetChart"></canvas>
+                        </div>
+                        <div class="text-center mt-3">
+                            <h3>Coût estimé: <span id="totalCost" class="price-tag">24 000 000 FCFA</span></h3>
+                            <p class="text-muted">Soit <span id="costPerM2" class="price-tag">200 000 FCFA/m²</span></p>
+                            <div id="savingsInfo" class="alert alert-info mt-3" style="display: none;">
+                                <i class="bi bi-info-circle me-1"></i> Le choix du BTC vous fait économiser environ <span id="savingsAmount">2 400 000 FCFA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 class="mb-3"><i class="bi bi-wallet2 me-2"></i>Détail de la répartition du budget</h4>
+                <div class="cost-calculator">
+                    <div class="cost-column">
+                        <div class="cost-column-header">Fondations</div>
+                        <div class="cost-card">
+                            <h6>Fondations standard</h6>
+                            <p>Semelles filantes, ferraillage</p>
+                            <div class="d-flex justify-content-between">
+                                <span class="badge bg-primary">15%</span>
+                                <span class="price-tag" id="foundationCost">3 600 000 FCFA</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cost-column">
+                        <div class="cost-column-header">Élévation</div>
+                        <div class="cost-card">
+                            <h6 id="elevationTitle">Murs en parpaing</h6>
+                            <p id="elevationDesc">Blocs de 15, enduit extérieur</p>
+                            <div class="d-flex justify-content-between">
+                                <span class="badge bg-primary">25%</span>
+                                <span class="price-tag" id="elevationCost">6 000 000 FCFA</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cost-column">
+                        <div class="cost-column-header">Toiture</div>
+                        <div class="cost-card">
+                            <h6>Charpente + tôle</h6>
+                            <p>Bois traité, tôle bac acier</p>
+                            <div class="d-flex justify-content-between">
+                                <span class="badge bg-primary">20%</span>
+                                <span class="price-tag" id="roofCost">4 800 000 FCFA</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cost-column">
+                        <div class="cost-column-header">Finition</div>
+                        <div class="cost-card">
+                            <h6 id="finishTitle">Finition standard</h6>
+                            <p id="finishDesc">Carrelage, peinture, électricité</p>
+                            <div class="d-flex justify-content-between">
+                                <span class="badge bg-primary">30%</span>
+                                <span class="price-tag" id="finishCost">7 200 000 FCFA</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cost-column">
+                        <div class="cost-column-header">Divers</div>
+                        <div class="cost-card">
+                            <h6>Main d'œuvre et divers</h6>
+                            <p>Artisans, frais de chantier</p>
+                            <div class="d-flex justify-content-between">
+                                <span class="badge bg-primary">10%</span>
+                                <span class="price-tag" id="otherCost">2 400 000 FCFA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 text-center">
+                    <button class="btn btn-construction me-2" onclick="saveEstimation()">
+                        <i class="bi bi-download me-1"></i>Sauvegarder cette estimation
+                    </button>
+                    <button class="btn btn-outline-primary" onclick="printEstimation()">
+                        <i class="bi bi-printer me-1"></i>Imprimer le détail
+                    </button>
+                </div>
             </div>
-            <div class="card-body">
-              <h6>Avantages</h6>
-              <ul>
-                <li>Résistance mécanique élevée</li>
-                <li>Durabilité prouvée</li>
-                <li>Large disponibilité</li>
-                <li>Main-d'œuvre qualifiée facile à trouver</li>
-              </ul>
-              
-              <h6>Inconvénients</h6>
-              <ul>
-                <li>Coût énergétique de production élevé</li>
-                <li>Faible performance thermique</li>
-                <li>Impact environnemental</li>
-              </ul>
-              
-              <div class="highlight-box construction-highlight">
-                <p class="mb-0"><strong>Prix moyen:</strong> <span class="price-tag">30-40k FCFA/m²</span> de mur</p>
-              </div>
+            
+            <div class="mt-4">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <i class="bi bi-clock-history me-2"></i>
+                        <h5 class="mb-0">Planification financière du projet</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Une bonne planification financière est essentielle pour mener à bien votre projet de construction. Voici une proposition de calendrier de décaissement :</p>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Phase</th>
+                                        <th>Pourcentage</th>
+                                        <th>Montant pour 120m²</th>
+                                        <th>Durée</th>
+                                        <th>Échéance typique</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Études et formalités</td>
+                                        <td>5%</td>
+                                        <td>1 200 000 FCFA</td>
+                                        <td>1-2 mois</td>
+                                        <td>Avant démarrage</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fondations et soubassement</td>
+                                        <td>15%</td>
+                                        <td>3 600 000 FCFA</td>
+                                        <td>3-4 semaines</td>
+                                        <td>À l'achèvement des fondations</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Élévation des murs</td>
+                                        <td>25%</td>
+                                        <td>6 000 000 FCFA</td>
+                                        <td>4-6 semaines</td>
+                                        <td>À mi-parcours et achèvement</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Toiture et charpente</td>
+                                        <td>20%</td>
+                                        <td>4 800 000 FCFA</td>
+                                        <td>2-3 semaines</td>
+                                        <td>À l'achèvement de la toiture</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Travaux de finition</td>
+                                        <td>30%</td>
+                                        <td>7 200 000 FCFA</td>
+                                        <td>6-8 semaines</td>
+                                        <td>Échelonné selon avancement</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Solde et réception</td>
+                                        <td>5%</td>
+                                        <td>1 200 000 FCFA</td>
+                                        <td>1-2 semaines</td>
+                                        <td>À la réception des travaux</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="alert alert-info mt-3">
+                            <i class="bi bi-info-circle me-2"></i> Cette planification est indicative et doit être adaptée en fonction de votre contrat avec l'entreprise de construction. Pensez à prévoir une trésorerie suffisante pour faire face aux échéances.
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        
-        <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-header d-flex align-items-center">
-              <i class="bi bi-tree me-2"></i>
-              <h5 class="mb-0">BTC (Brique de Terre Comprimée)</h5>
-            </div>
-            <div class="card-body">
-              <h6>Avantages</h6>
-              <ul>
-                <li>Excellent régulateur hygrothermique</li>
-                <li>Faible impact environnemental</li>
-                <li>Matériau local et économique</li>
-                <li>Performance énergétique</li>
-              </ul>
-              
-              <h6>Inconvénients</h6>
-              <ul>
-                <li>Résistance à l'eau limitée</li>
-                <li>Main-d'œuvre spécialisée rare</li>
-                <li>Normes et certifications en développement</li>
-              </ul>
-              
-              <div class="highlight-box construction-highlight">
-                <p class="mb-0"><strong>Prix moyen:</strong> <span class="price-tag">25-35k FCFA/m²</span> de mur</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <section id="conseils" class="mb-5">
-      <h2 class="text-center mb-4">Conseils pour optimiser votre budget</h2>
-      
-      <div class="row">
-        <div class="col-lg-10 mx-auto">
-          <div class="process-step">
-            <h5>Étude préalable du sol</h5>
-            <p>Une étude géotechnique permet d'adapter les fondations au sol et d'éviter des surcoûts imprévus.</p>
-          </div>
-          
-          <div class="process-step">
-            <h5>Choix des matériaux adaptés</h5>
-            <p>Privilégiez les matériaux locaux comme le BTC pour réduire les coûts et l'empreinte écologique.</p>
-          </div>
-          
-          <div class="process-step">
-            <h5>Planification des travaux</h5>
-            <p>Échelonnez les travaux en fonction de votre budget et privilégiez la qualité de la main-d'œuvre.</p>
-          </div>
-          
-          <div class="process-step">
-            <h5>Contrôle régulier du chantier</h5>
-            <p>Assurez un suivi rigoureux pour éviter les malfaçons et les dépassements de budget.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+        <!-- Section Matériaux -->
+        <section id="materiaux" class="mb-5">
+            <h2 class="text-center mb-4">Comparaison des matériaux de construction</h2>
+            
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card h-100 material-card">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-bricks me-2"></i>
+                            <h5 class="mb-0">Parpaing ciment</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Avantages</h6>
+                            <ul>
+                                <li>Résistance mécanique élevée et éprouvée</li>
+                                <li>Durabilité dans le temps (50+ ans)</li>
+                                <li>Large disponibilité sur tout le territoire</li>
+                                <li>Main-d'œuvre qualifiée facile à trouver</li>
+                                <li>Normes de fabrication standardisées</li>
+                                <li>Résistance à l'humidité et aux termites</li>
+                            </ul>
+                            
+                            <h6>Inconvénients</h6>
+                            <ul>
+                                <li>Coût énergétique de production élevé</li>
+                                <li>Faible performance thermique (isolation)</li>
+                                <li>Impact environnemental important</li>
+                                <li>Poids élevé nécessitant des fondations adaptées</li>
+                                <li>Production émettrice de CO₂</li>
+                            </ul>
+                            
+                            <div class="construction-highlight highlight-box mt-3">
+                                <p class="mb-0"><strong>Prix moyen:</strong> <span class="price-tag">30-40k FCFA/m²</span> de mur (pose comprise)</p>
+                            </div>
+                            
+                            <div class="mt-3">
+                                <h6>Caractéristiques techniques</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <th>Dimensions standard</th>
+                                            <td>20x20x50 cm ou 15x20x40 cm</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Résistance à la compression</th>
+                                            <td>5 à 15 MPa</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Conductivité thermique</th>
+                                            <td>1.15 W/m.K (médiocre)</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Densité</th>
+                                            <td>1800-2000 kg/m³</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card h-100 material-card">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-tree me-2"></i>
+                            <h5 class="mb-0">BTC (Brique de Terre Comprimée)</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Avantages</h6>
+                            <ul>
+                                <li>Excellent régulateur hygrothermique naturel</li>
+                                <li>Faible impact environnemental</li>
+                                <li>Matériau local et économique</li>
+                                <li>Performance énergétique exceptionnelle</li>
+                                <li>Production à faible énergie grise</li>
+                                <li>Confort thermique et acoustique</li>
+                            </ul>
+                            
+                            <h6>Inconvénients</h6>
+                            <ul>
+                                <li>Résistance à l'eau limitée (nécessite protection)</li>
+                                <li>Main-d'œuvre spécialisée encore rare</li>
+                                <li>Normes et certifications en développement</li>
+                                <li>Production artisanale variable en qualité</li>
+                                <li>Respect des temps de séchage nécessaire</li>
+                            </ul>
+                            
+                            <div class="construction-highlight highlight-box mt-3">
+                                <p class="mb-0"><strong>Prix moyen:</strong> <span class="price-tag">25-35k FCFA/m²</span> de mur (pose comprise)</p>
+                            </div>
+                            
+                            <div class="mt-3">
+                                <h6>Caractéristiques techniques</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <th>Dimensions standard</th>
+                                            <td>29x14x9 cm ou 30x15x10 cm</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Résistance à la compression</th>
+                                            <td>2 à 8 MPa (suffisant pour 2 étages)</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Conductivité thermique</th>
+                                            <td>0.5 W/m.K (excellente isolation)</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Densité</th>
+                                            <td>1800-2200 kg/m³</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header d-flex align-items-center">
+                    <i class="bi bi-bar-chart me-2"></i>
+                    <h5 class="mb-0">Analyse comparative détaillée</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Critère</th>
+                                    <th>Parpaing ciment</th>
+                                    <th>BTC</th>
+                                    <th>Avantage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Coût au m² de mur</td>
+                                    <td>30 000 - 40 000 FCFA</td>
+                                    <td>25 000 - 35 000 FCFA</td>
+                                    <td><span class="badge bg-success">BTC</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Isolation thermique</td>
+                                    <td>Médiocre (1.15 W/m.K)</td>
+                                    <td>Excellente (0.5 W/m.K)</td>
+                                    <td><span class="badge bg-success">BTC</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Impact environnemental</td>
+                                    <td>Élevé (énergie grise)</td>
+                                    <td>Faible (matériau local)</td>
+                                    <td><span class="badge bg-success">BTC</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Résistance mécanique</td>
+                                    <td>5-15 MPa (excellente)</td>
+                                    <td>2-8 MPa (suffisante)</td>
+                                    <td><span class="badge bg-primary">Parpaing</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Durabilité</td>
+                                    <td>50+ ans (éprouvé)</td>
+                                    <td>30+ ans (sous protection)</td>
+                                    <td><span class="badge bg-primary">Parpaing</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Disponibilité main-d'œuvre</td>
+                                    <td>Large disponibilité</td>
+                                    <td>Spécialisée encore rare</td>
+                                    <td><span class="badge bg-primary">Parpaing</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Confort hygrothermique</td>
+                                    <td>Médiocre (condensation)</td>
+                                    <td>Exceptionnel (régulation naturelle)</td>
+                                    <td><span class="badge bg-success">BTC</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Resistance séismique</td>
+                                    <td>Bonne avec ferraillage</td>
+                                    <td>Bonne (flexibilité naturelle)</td>
+                                    <td><span class="badge bg-info">Égalité</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="alert alert-info">
+                                <h6><i class="bi bi-info-circle me-2"></i>Quand choisir le parpaing?</h6>
+                                <ul class="mb-0">
+                                    <li>Construction en zone inondable</li>
+                                    <li>Bâtiments de plus de 2 étages</li>
+                                    <li>Quando la main-d'œuvre BTC n'est pas disponible</li>
+                                    <li>Quand la durabilité à long terme est primordiale</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="alert alert-success">
+                                <h6><i class="bi bi-check-circle me-2"></i>Quand choisir le BTC?</h6>
+                                <ul class="mb-0">
+                                    <li>Construction écologique et durable</li>
+                                    <li>Réduction des coûts de climatisation</li>
+                                    <li>Valorisation des matériaux locaux</li>
+                                    <li>Maisons individuelles et bâtiments bas</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header d-flex align-items-center">
+                    <i class="bi bi-tools me-2"></i>
+                    <h5 class="mb-0">Mise en œuvre et techniques associées</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Techniques pour parpaing ciment</h6>
+                            <ul>
+                                <li>Mortier de pose : ciment/sable (1:4)</li>
+                                <li>Chaînages verticaux et horizontaux obligatoires</li>
+                                <li>Enduit extérieur hydrofuge recommandé</li>
+                                <li>Timeblock possible pour une isolation améliorée</li>
+                                <li>Respect des temps de prise et de séchage</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Techniques pour BTC</h6>
+                            <ul>
+                                <li>Mortier de terre ou mortier faible en ciment</li>
+                                <li>Protection impérative contre les pluies directes</li>
+                                <li>Enduit à la chaux ou terre stabilisée recommandé</li>
+                                <li>Toiture avec débord important (60cm minimum)</li>
+                                <li>Respect des temps de séchage longs (3-4 semaines)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-warning mt-3">
+                        <i class="bi bi-exclamation-triangle me-2"></i> Quel que soit le matériau choisi, il est essentiel de respecter les règles de l'art et de faire appel à des professionnels qualifiés. Une mauvaise mise en œuvre peut compromettre la solidité et la durabilité de la construction.
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <section id="ressources" class="mb-5">
-      <h2 class="text-center mb-4">Ressources utiles</h2>
-      
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card h-100">
-            <div class="card-header d-flex align-items-center">
-              <i class="bi bi-file-text me-2"></i>
-              <h5 class="mb-0">Documents</h5>
+        <!-- Section Régionale -->
+        <section id="regional" class="mb-5">
+            <h2 class="text-center mb-4">Variations régionales des coûts</h2>
+            
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card h-100 region-card">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-buildings me-2"></i>
+                            <h5 class="mb-0">Région d'Abidjan</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Caractéristiques</h6>
+                            <ul>
+                                <li>Coûts les plus élevés du pays</li>
+                                <li>Main-d'œuvre qualifiée abondante</li>
+                                <li>Approvisionnement facile en matériaux</li>
+                                <li>Contraintes urbaines (accès, voisinage)</li>
+                                <li>Exigences administratives plus strictes</li>
+                            </ul>
+                            
+                            <h6>Surcoûts typiques</h6>
+                            <ul>
+                                <li>Main-d'œuvre : +20 à 30%</li>
+                                <li>Transport et logistique : +10 à 15%</li>
+                                <li>Frais administratifs : +5 à 10%</li>
+                                <li>Coût total : +15 à 25%</li>
+                            </ul>
+                            
+                            <div class="construction-highlight highlight-box mt-3">
+                                <p class="mb-0"><strong>Coût moyen:</strong> <span class="price-tag">230-380k FCFA/m²</span> selon standing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card h-100 region-card">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-house me-2"></i>
+                            <h5 class="mb-0">Villes secondaires</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Caractéristiques</h6>
+                            <ul>
+                                <li>Coûts intermédiaires</li>
+                                <li>Main-d'œuvre disponible mais moins spécialisée</li>
+                                <li>Approvisionnement parfois limité</li>
+                                <li>Moindres contraintes urbaines</li>
+                                <li>Procédures administratives simplifiées</li>
+                            </ul>
+                            
+                            <h6>Avantages/inconvénients</h6>
+                            <ul>
+                                <li>Main-d'œuvre : coût standard</li>
+                                <li>Transport : variable selon l'éloignement</li>
+                                <li>Matériaux : parfois des pénuries</li>
+                                <li>Coût total : référence nationale</li>
+                            </ul>
+                            
+                            <div class="construction-highlight highlight-box mt-3">
+                                <p class="mb-0"><strong>Coût moyen:</strong> <span class="price-tag">150-300k FCFA/m²</span> selon standing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card h-100 region-card">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-tree me-2"></i>
+                            <h5 class="mb-0">Zones rurales</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Caractéristiques</h6>
+                            <ul>
+                                <li>Coûts généralement plus bas</li>
+                                <li>Main-d'œuvre peu spécialisée</li>
+                                <li>Approvisionnement difficile</li>
+                                <li>Opportunité pour matériaux locaux</li>
+                                <li>Procédures souvent informelles</li>
+                            </ul>
+                            
+                            <h6>Économies possibles</h6>
+                            <ul>
+                                <li>Main-d'œuvre : -20 à 30%</li>
+                                <li>Matériaux locaux : -10 à 20%</li>
+                                <li>Transport : surcoût possible</li>
+                                <li>Coût total : -15 à 25%</li>
+                            </ul>
+                            
+                            <div class="construction-highlight highlight-box mt-3">
+                                <p class="mb-0"><strong>Coût moyen:</strong> <span class="price-tag">120-250k FCFA/m²</span> selon standing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item"><a href="#" class="text-decoration-none">Guide de construction en BTC</a></li>
-                <li class="list-group-item"><a href="#" class="text-decoration-none">Cahier des charges type</a></li>
-                <li class="list-group-item"><a href="#" class="text-decoration-none">Checklist de suivi de chantier</a></li>
-              </ul>
+            
+            <div class="card mb-4">
+                <div class="card-header d-flex align-items-center">
+                    <i class="bi bi-map me-2"></i>
+                    <h5 class="mb-0">Carte des variations régionales</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Région</th>
+                                            <th>Coefficient</th>
+                                            <th>Coût moyen/m²</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Abidjan</td>
+                                            <td>1.15 - 1.25</td>
+                                            <td>230 000 - 380 000 FCFA</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Grands centres urbains (Bouaké, San Pedro)</td>
+                                            <td>1.05 - 1.10</td>
+                                            <td>210 000 - 340 000 FCFA</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Villes secondaires (Daloa, Korhogo, Man)</td>
+                                            <td>1.00</td>
+                                            <td>200 000 - 320 000 FCFA</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Petites villes</td>
+                                            <td>0.90 - 0.95</td>
+                                            <td>180 000 - 300 000 FCFA</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Zones rurales</td>
+                                            <td>0.75 - 0.85</td>
+                                            <td>150 000 - 270 000 FCFA</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="alert alert-info">
+                                <h6><i class="bi bi-info-circle me-2"></i>Facteurs influençant les variations régionales</h6>
+                                <ul class="mb-0">
+                                    <li>Disponibilité et coût de la main-d'œuvre</li>
+                                    <li>Distance des centres d'approvisionnement</li>
+                                    <li>Coût du transport des matériaux</li>
+                                    <li>Présence d'entreprises spécialisées</li>
+                                    <li>Exigences administratives locales</li>
+                                    <li>Concurrence entre entrepreneurs</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="bi bi-exclamation-triangle me-2"></i> Ces coefficients sont indicatifs et peuvent varier significativement en fonction de la localisation exacte et des conditions d'accès au terrain.
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        
-        <div class="col-md-4">
-          <div class="card h-100">
-            <div class="card-header d-flex align-items-center">
-              <i class="bi bi-calculator me-2"></i>
-              <h5 class="mb-0">Outils</h5>
+            
+            <div class="card">
+                <div class="card-header d-flex align-items-center">
+                    <i class="bi bi-truck me-2"></i>
+                    <h5 class="mb-0">Coûts de transport des matériaux</h5>
+                </div>
+                <div class="card-body">
+                    <p>Le transport des matériaux peut représenter une part significative du budget dans les zones éloignées. Voici une estimation des coûts :</p>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Matériau</th>
+                                    <th>Conditionnement</th>
+                                    <th>Coût Abidjan</th>
+                                    <th>+100km</th>
+                                    <th>+200km</th>
+                                    <th>+300km</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Ciment</td>
+                                    <td>Sac de 50kg</td>
+                                    <td>5 500 FCFA</td>
+                                    <td>+200 FCFA</td>
+                                    <td>+400 FCFA</td>
+                                    <td>+600 FCFA</td>
+                                </tr>
+                                <tr>
+                                    <td>Parpaings</td>
+                                    <td>Pièce</td>
+                                    <td>350 FCFA</td>
+                                    <td>+20 FCFA</td>
+                                    <td>+40 FCFA</td>
+                                    <td>+60 FCFA</td>
+                                </tr>
+                                <tr>
+                                    <td>Tôles</td>
+                                    <td>m²</td>
+                                    <td>8 000 FCFA</td>
+                                    <td>+300 FCFA</td>
+                                    <td>+600 FCFA</td>
+                                    <td>+900 FCFA</td>
+                                </tr>
+                                <tr>
+                                    <td>Bois</td>
+                                    <td>m³</td>
+                                    <td>250 000 FCFA</td>
+                                    <td>+15 000 FCFA</td>
+                                    <td>+30 000 FCFA</td>
+                                    <td>+45 000 FCFA</td>
+                                </tr>
+                                <tr>
+                                    <td>Fer à béton</td>
+                                    <td>kg</td>
+                                    <td>600 FCFA</td>
+                                    <td>+30 FCFA</td>
+                                    <td>+60 FCFA</td>
+                                    <td>+90 FCFA</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="alert alert-info mt-3">
+                        <i class="bi bi-lightbulb me-2"></i> Dans les zones éloignées, il peut être économiquement intéressant de privilégier les matériaux locaux (BTC, pierres, bois local) pour réduire les coûts de transport qui peuvent représenter jusqu'à 20% du budget total.
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item"><a href="#" class="text-decoration-none">Calculateur détaillé de coûts</a></li>
-                <li class="list-group-item"><a href="#" class="text-decoration-none">Comparateur de matériaux</a></li>
-                <li class="list-group-item"><a href="#" class="text-decoration-none">Simulateur de planning</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        
-        <div class="col-md-4">
-          <div class="card h-100">
-            <div class="card-header d-flex align-items-center">
-              <i class="bi bi-person me-2"></i>
-              <h5 class="mb-0">Experts</h5>
-            </div>
-            <div class="card-body">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item"><a href="#" class="text-decoration-none">Annuaire des architectes</a></li>
-                <li class="list-group-item"><a href="#" class="text-decoration-none">Artisans spécialisés BTC</a></li>
-                <li class="list-group-item"><a href="#" class="text-decoration-none">Bureaux d'étude techniques</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
+        </section>
 
-  <footer class="mt-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 mb-4 mb-md-0">
-          <h5>Portail Construction Côte d'Ivoire</h5>
-          <p>Estimez votre budget de construction par m² selon le type de matériaux et le standing recherché.</p>
-        </div>
-        <div class="col-md-4 mb-4 mb-md-0">
-          <h5>Liens utiles</h5>
-          <ul class="list-unstyled">
-            <li><a href="#" class="text-white">Ministère de la Construction</a></li>
-            <li><a href="#" class="text-white">Normes ivoiriennes</a></li>
-            <li><a href="#" class="text-white">Guides techniques</a></li>
-          </ul>
-        </div>
-        <div class="col-md-4">
-          <h5>Contact</h5>
-          <ul class="list-unstyled">
-            <li><i class="bi bi-envelope me-2"></i> contact@construction.ci</li>
-            <li><i class="bi bi-telephone me-2"></i> +225 20 30 40 50</li>
-            <li><i class="bi bi-geo-alt me-2"></i> Abidjan, Plateau</li>
-          </ul>
-        </div>
-      </div>
-      <hr class="my-4 bg-light">
-      <div class="text-center">
-        <p class="mb-0">© 2023 Portail Construction Côte d'Ivoire. Tous droits réservés.</p>
-      </div>
+        <!-- Section Conseils -->
+        <section id="conseils" class="mb-5">
+            <h2 class="text-center mb-4">Conseils pratiques pour optimiser votre projet</h2>
+            
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card h-100 tip-card">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-clipboard-check me-2"></i>
+                            <h5 class="mb-0">Avant le démarrage</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="process-step">
+                                <h6>Étude préalable du sol</h6>
+                                <p>Une étude géotechnique (200 000 - 500 000 FCFA) permet d'adapter les fondations au sol et d'éviter des surcoûts imprévus. Elle est indispensable en zone instable ou inondable.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <h6>Choix des matériaux adaptés</h6>
+                                <p>Privilégiez les matériaux locaux comme le BTC pour réduire les coûts et l'empreinte écologique. Comparez les devis d'au moins 3 fournisseurs pour chaque matériau.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <h6>Planification financière</h6>
+                                <p>Prévoyez un budget avec une marge de 10-15% pour les imprévus. Échelonnez les paiements en fonction de l'avancement des travaux pour garder le contrôle.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card h-100 tip-card">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-gear me-2"></i>
+                            <h5 class="mb-0">Pendant la construction</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="process-step">
+                                <h6>Supervision régulière</h6>
+                                <p>Visitez le chantier au moins une fois par semaine pour suivre l'avancement et vérifier la qualité des travaux. Notez les écarts par rapport au planning.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <h6>Gestion des approvisionnements</h6>
+                                <p>Commandez les matériaux à l'avance pour éviter les ruptures de stock. Vérifiez la qualité à réception et stockez-les correctement.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <h6>Adaptation aux aléas</h6>
+                                <p>Anticipez les problèmes météorologiques (pluies) et prévoyez des solutions alternatives pour ne pas bloquer le chantier.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card h-100 tip-card">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-cash-coin me-2"></i>
+                            <h5 class="mb-0">Optimisation budgétaire</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="process-step">
+                                <h6>Phasage intelligent des travaux</h6>
+                                <p>Construisez par phases si votre budget est limité. Commencez par les parties essentielles et ajoutez les extensions plus tard.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <h6>Choix stratégiques des finitions</h6>
+                                <p>Priorisez les finitions dans les pièces de vie (salon, chambres) et simplifiez celles des pièces secondaires. Vous pourrez les améliorer ultérieurement.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <h6>Auto-construction partielle</h6>
+                                <p>Pour réduire les coûts de main-d'œuvre, réalisez vous-même certaines tâches simples (peinture, carrelage, aménagement paysager) si vous avez les compétences.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card h-100 tip-card">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-shield-check me-2"></i>
+                            <h5 class="mb-0">Après la construction</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="process-step">
+                                <h6>Réception des travaux</h6>
+                                <p>Ne signez la réception définitive qu'après avoir vérifié tous les points de conformité. Listez par écrit les réserves et délais de correction.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <h6>Entretien préventif</h6>
+                                <p>Un entretien régulier (crépis, peinture, toiture) prolonge la durée de vie du bâtiment et évite des réparations coûteuses.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <h6>Documentation technique</h6>
+                                <p>Conservez soigneusement tous les plans, factures et notices techniques. Ils seront indispensables pour d'éventuelles modifications ou réparations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header d-flex align-items-center">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    <h5 class="mb-0">Pièges à éviter absolument</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="alert alert-danger">
+                                <h6><i class="bi bi-x-circle me-2"></i>Économies sur les fondations</h6>
+                                <p class="mb-0">Réduire la qualité ou la profondeur des fondations est la pire économie possible. Les problèmes structurels qui en découlent sont extrêmement coûteux à corriger.</p>
+                            </div>
+                            
+                            <div class="alert alert-danger mt-3">
+                                <h6><i class="bi bi-x-circle me-2"></i>Main-d'œuvre non qualifiée</h6>
+                                <p class="mb-0">Un prix attractif peut cacher une incompétence technique. Vérifiez les références et réalisations antérieures de l'entreprise ou de l'artisan.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="alert alert-danger">
+                                <h6><i class="bi bi-x-circle me-2"></i>Matériaux de qualité incertaine</h6>
+                                <p class="mb-0">Les matériaux non conformes aux normes peuvent compromettre la solidité et la durabilité du bâtiment. Exigez les certificats de qualité.</p>
+                            </div>
+                            
+                            <div class="alert alert-danger mt-3">
+                                <h6><i class="bi bi-x-circle me-2"></i>Contrats imprécis</h6>
+                                <p class="mb-0">Un contrat flou ou oral est source de conflits. Faites rédiger un contrat détaillé avec descriptif technique, planning et échéancier de paiement.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Ressources -->
+        <section id="ressources" class="mb-5">
+            <h2 class="text-center mb-4">Ressources et outils complémentaires</h2>
+            
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-file-text me-2"></i>
+                            <h5 class="mb-0">Documents types</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                        <span>Checklist de suivi de chantier</span>
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                        <span>Modèle de contrat de construction</span>
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                        <span>Tableau de planning des travaux</span>
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                        <span>Grille d'évaluation des devis</span>
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                        <span>Guide des normes de construction</span>
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-calculator me-2"></i>
+                            <h5 class="mb-0">Calculateurs spécialisés</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                        <span>Calculateur de quantité de ciment</span>
+                                        <i class="bi bi-box-arrow-up-right"></i>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                        <span>Estimation main-d'œuvre par corps de métier</span>
+                                        <i class="bi bi-box-arrow-up-right"></i>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                        <span>Simulateur de planning de travaux</span>
+                                        <i class="bi bi-box-arrow-up-right"></i>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                        <span>Calculateur de consommation énergétique</span>
+                                        <i class="bi bi-box-arrow-up-right"></i>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                        <span>Outil de comparaison matériaux</span>
+                                        <i class="bi bi-box-arrow-up-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-person me-2"></i>
+                            <h5 class="mb-0">Annuaire des professionnels</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                        <span>Architectes spécialisés en construction locale</span>
+                                        <i class="bi bi-telephone"></i>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                        <span>Entreprises de construction certifiées</span>
+                                        <i class="bi bi-telephone"></i>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                        <span>Fournisseurs de matériaux BTC</span>
+                                        <i class="bi bi-telephone"></i>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                        <span>Bureaux d'études techniques</span>
+                                        <i class="bi bi-telephone"></i>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                        <span>Artisans spécialisés par région</span>
+                                        <i class="bi bi-telephone"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header d-flex align-items-center">
+                    <i class="bi bi-book me-2"></i>
+                    <h5 class="mb-0">Pour aller plus loin</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Références techniques</h6>
+                            <ul>
+                                <li>Normes ivoiriennes de construction (BNI)</li>
+                                <li>Guide des bonnes pratiques de construction en zone tropicale</li>
+                                <li>Cahier des prescriptions techniques pour bâtiments civils</li>
+                                <li>Règlement parasismique pour l'Afrique de l'Ouest</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Formations disponibles</h6>
+                            <ul>
+                                <li>Auto-construction avec matériaux locaux</li>
+                                <li>Techniques de construction en BTC</li>
+                                <li>Gestion de projet de construction</li>
+                                <li>Contrôle qualité des matériaux de construction</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info mt-3">
+                        <i class="bi bi-info-circle me-2"></i> La plupart de ces ressources sont disponibles auprès de la Direction de l'Architecture et de l'Urbanisme, des Chambres de Commerce, et des organisations professionnelles de la construction.
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-  </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Fonction pour mettre à jour l'affichage de la surface
-    document.getElementById('surfaceRange').addEventListener('input', function() {
-      document.getElementById('surfaceValue').textContent = this.value + ' m²';
-      updateCostCalculation();
-    });
+    <footer class="mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Guide Construction Côte d'Ivoire</h5>
+                    <p>Estimez votre budget de construction par m² selon le type de matériaux et le standing recherché.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white"><i class="bi bi-facebook fs-5"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-twitter fs-5"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-linkedin fs-5"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-youtube fs-5"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Liens utiles</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Ministère de la Construction</a></li>
+                        <li><a href="#" class="text-white">Normes ivoiriennes (BNI)</a></li>
+                        <li><a href="#" class="text-white">Chambre des Bâtiments et Travaux Publics</a></li>
+                        <li><a href="#" class="text-white">Guides techniques</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-envelope me-2"></i> contact@construction.ci</li>
+                        <li><i class="bi bi-telephone me-2"></i> +225 20 30 40 50</li>
+                        <li><i class="bi bi-geo-alt me-2"></i> Abidjan, Plateau</li>
+                        <li><i class="bi bi-clock me-2"></i> Lun-Ven: 8h-17h | Sam: 9h-13h</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="text-center">
+                <p class="mb-0">© 2023 Guide Construction Côte d'Ivoire. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
 
-    // Fonction pour mettre à jour le calcul des coûts
-    function updateCostCalculation() {
-      const surface = parseInt(document.getElementById('surfaceRange').value);
-      const constructionType = document.getElementById('constructionType').value;
-      const materialType = document.getElementById('materialType').value;
-      
-      // Prix de base selon le type de construction
-      let basePrice;
-      switch(constructionType) {
-        case 'economique':
-          basePrice = 150000;
-          break;
-        case 'standard':
-          basePrice = 200000;
-          break;
-        case 'haut-gamme':
-          basePrice = 300000;
-          break;
-        default:
-          basePrice = 200000;
-      }
-      
-      // Ajustement selon le matériau
-      if (materialType === 'btc') {
-        basePrice = basePrice * 0.9; // Réduction de 10% pour BTC
-      }
-      
-      const totalCost = surface * basePrice;
-      const formattedCost = new Intl.NumberFormat('fr-FR').format(totalCost);
-      const formattedCostPerM2 = new Intl.NumberFormat('fr-FR').format(basePrice);
-      
-      document.getElementById('totalCost').textContent = formattedCost + ' FCFA';
-      document.getElementById('costPerM2').textContent = formattedCostPerM2 + ' FCFA/m²';
-      
-      // Mise à jour des pourcentages dans le calculateur de coûts
-      updateCostBreakdown(totalCost);
-    }
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Données pour les graphiques
+        const costDistributionData = {
+            labels: ['Fondations', 'Élévation', 'Toiture', 'Finition', 'Divers'],
+            datasets: [{
+                data: [18, 27, 20, 28, 7],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(153, 102, 255, 0.7)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 206, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(153, 102, 255)'
+                ],
+                borderWidth: 1
+            }]
+        };
 
-    // Fonction pour mettre à jour la répartition des coûts
-    function updateCostBreakdown(totalCost) {
-      const percentages = {
-        fondations: 0.15,
-        elevation: 0.25,
-        toiture: 0.20,
-        finition: 0.30,
-        divers: 0.10
-      };
-      
-      for (const [category, percentage] of Object.entries(percentures)) {
-        const costElement = document.querySelector(`.cost-column:has(.cost-column-header:contains("${category}")) .price-tag`);
-        if (costElement) {
-          const cost = totalCost * percentage;
-          costElement.textContent = new Intl.NumberFormat('fr-FR').format(cost) + ' FCFA';
-        }
-      }
-    }
+        const costDistributionConfig = {
+            type: 'pie',
+            data: costDistributionData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Répartition des coûts de construction'
+                    }
+                }
+            },
+        };
 
-    // Mise à jour lors du changement de type de construction ou de matériau
-    document.getElementById('constructionType').addEventListener('change', updateCostCalculation);
-    document.getElementById('materialType').addEventListener('change', updateCostCalculation);
-
-    // Initialisation au chargement de la page
-    document.addEventListener('DOMContentLoaded', function() {
-      updateCostCalculation();
-      
-      // Animation des cartes au défilement
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-      };
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-          }
+        // Initialisation des graphiques
+        document.addEventListener('DOMContentLoaded', function() {
+            // Graphique de répartition des coûts
+            const costDistributionChart = new Chart(
+                document.getElementById('costDistributionChart'),
+                costDistributionConfig
+            );
+            
+            // Graphique du simulateur
+            const budgetChart = new Chart(
+                document.getElementById('budgetChart'),
+                {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Fondations', 'Élévation', 'Toiture', 'Finition', 'Divers'],
+                        datasets: [{
+                            data: [18, 27, 20, 28, 7],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.7)',
+                                'rgba(54, 162, 235, 0.7)',
+                                'rgba(255, 206, 86, 0.7)',
+                                'rgba(75, 192, 192, 0.7)',
+                                'rgba(153, 102, 255, 0.7)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            }
+                        }
+                    }
+                }
+            );
+            
+            // Initialisation du calculateur
+            updateCostCalculation();
+            
+            // Animation des cartes au défilement
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.module-card').forEach(card => {
+                observer.observe(card);
+            });
         });
-      }, observerOptions);
-      
-      document.querySelectorAll('.module-card').forEach(card => {
-        observer.observe(card);
-      });
-    });
 
-    // Fonction pour afficher les détails (exemple)
-    function showDetails(type) {
-      alert('Fonctionnalité en développement: Détails sur ' + type.toUpperCase());
-    }
-  </script>
+        // Fonction pour mettre à jour l'affichage de la surface
+        document.getElementById('surfaceRange').addEventListener('input', function() {
+            document.getElementById('surfaceValue').textContent = this.value + ' m²';
+            updateCostCalculation();
+        });
+
+        // Fonctions pour mettre à jour le calcul des coûts
+        function updateCostCalculation() {
+            const surface = parseInt(document.getElementById('surfaceRange').value);
+            const constructionType = document.getElementById('constructionType').value;
+            const materialType = document.getElementById('materialType').value;
+            const regionType = document.getElementById('regionType').value;
+            const includeFees = document.getElementById('includeFees').checked;
+            
+            // Prix de base selon le type de construction
+            let basePrice;
+            switch(constructionType) {
+                case 'economique':
+                    basePrice = 150000;
+                    break;
+                case 'standard':
+                    basePrice = 200000;
+                    break;
+                case 'confort':
+                    basePrice = 250000;
+                    break;
+                case 'haut-gamme':
+                    basePrice = 300000;
+                    break;
+                default:
+                    basePrice = 200000;
+            }
+            
+            // Ajustement selon le matériau
+            let materialSaving = 0;
+            if (materialType === 'btc') {
+                materialSaving = 0.1; // Réduction de 10% pour BTC
+                document.getElementById('elevationTitle').textContent = "Murs en BTC";
+                document.getElementById('elevationDesc').textContent = "Briques de terre comprimée";
+                document.getElementById('savingsInfo').style.display = 'block';
+            } else {
+                document.getElementById('elevationTitle').textContent = "Murs en parpaing";
+                document.getElementById('elevationDesc').textContent = "Blocs de 15, enduit extérieur";
+                document.getElementById('savingsInfo').style.display = 'none';
+            }
+            
+            // Ajustement selon la région
+            let regionCoefficient = 1;
+            switch(regionType) {
+                case 'abidjan':
+                    regionCoefficient = 1.2;
+                    break;
+                case 'ville':
+                    regionCoefficient = 1;
+                    break;
+                case 'rurale':
+                    regionCoefficient = 0.8;
+                    break;
+            }
+            
+            // Application des coefficients
+            basePrice = basePrice * (1 - materialSaving) * regionCoefficient;
+            
+            // Application des frais supplémentaires si demandé
+            let totalCost = surface * basePrice;
+            if (includeFees) {
+                totalCost = totalCost * 1.15;
+            }
+            
+            const formattedCost = new Intl.NumberFormat('fr-FR').format(totalCost);
+            const formattedCostPerM2 = new Intl.NumberFormat('fr-FR').format(Math.round(totalCost / surface));
+            
+            document.getElementById('totalCost').textContent = formattedCost + ' FCFA';
+            document.getElementById('costPerM2').textContent = formattedCostPerM2 + ' FCFA/m²';
+            
+            // Mise à jour des économies BTC
+            if (materialType === 'btc') {
+                const costWithoutSaving = surface * basePrice / (1 - materialSaving) * regionCoefficient * (includeFees ? 1.15 : 1);
+                const savings = costWithoutSaving - totalCost;
+                document.getElementById('savingsAmount').textContent = new Intl.NumberFormat('fr-FR').format(Math.round(savings)) + ' FCFA';
+            }
+            
+            // Mise à jour des pourcentages dans le calculateur de coûts
+            updateCostBreakdown(totalCost, constructionType);
+        }
+
+        // Fonction pour mettre à jour la répartition des coûts
+        function updateCostBreakdown(totalCost, constructionType) {
+            // Pourcentages variables selon le type de construction
+            let percentages = {
+                fondations: 0.18,
+                elevation: 0.27,
+                toiture: 0.20,
+                finition: 0.28,
+                divers: 0.07
+            };
+            
+            // Ajustement des pourcentages selon le type de construction
+            switch(constructionType) {
+                case 'economique':
+                    percentages.fondations = 0.15;
+                    percentages.elevation = 0.25;
+                    percentages.toiture = 0.20;
+                    percentages.finition = 0.30;
+                    percentages.divers = 0.10;
+                    document.getElementById('finishTitle').textContent = "Finition économique";
+                    document.getElementById('finishDesc').textContent = "Revêtements basiques, électricité standard";
+                    break;
+                case 'standard':
+                    percentages.fondations = 0.18;
+                    percentages.elevation = 0.27;
+                    percentages.toiture = 0.20;
+                    percentages.finition = 0.28;
+                    percentages.divers = 0.07;
+                    document.getElementById('finishTitle').textContent = "Finition standard";
+                    document.getElementById('finishDesc').textContent = "Carrelage, peinture, électricité";
+                    break;
+                case 'confort':
+                    percentages.fondations = 0.20;
+                    percentages.elevation = 0.28;
+                    percentages.toiture = 0.22;
+                    percentages.finition = 0.25;
+                    percentages.divers = 0.05;
+                    document.getElementById('finishTitle').textContent = "Finition confort";
+                    document.getElementById('finishDesc').textContent = "Carrelage qualité, menuiserie aluminium, éclairage LED";
+                    break;
+                case 'haut-gamme':
+                    percentages.fondations = 0.22;
+                    percentages.elevation = 0.30;
+                    percentages.toiture = 0.25;
+                    percentages.finition = 0.18;
+                    percentages.divers = 0.05;
+                    document.getElementById('finishTitle').textContent = "Finition haut de gamme";
+                    document.getElementById('finishDesc').textContent = "Matériaux premium, domotique, équipements luxe";
+                    break;
+            }
+            
+            // Calcul des coûts par poste
+            const foundationCost = totalCost * percentages.fondations;
+            const elevationCost = totalCost * percentages.elevation;
+            const roofCost = totalCost * percentages.toiture;
+            const finishCost = totalCost * percentages.finition;
+            const otherCost = totalCost * percentages.divers;
+            
+            // Mise à jour de l'affichage
+            document.getElementById('foundationCost').textContent = new Intl.NumberFormat('fr-FR').format(Math.round(foundationCost)) + ' FCFA';
+            document.getElementById('elevationCost').textContent = new Intl.NumberFormat('fr-FR').format(Math.round(elevationCost)) + ' FCFA';
+            document.getElementById('roofCost').textContent = new Intl.NumberFormat('fr-FR').format(Math.round(roofCost)) + ' FCFA';
+            document.getElementById('finishCost').textContent = new Intl.NumberFormat('fr-FR').format(Math.round(finishCost)) + ' FCFA';
+            document.getElementById('otherCost').textContent = new Intl.NumberFormat('fr-FR').format(Math.round(otherCost)) + ' FCFA';
+            
+            // Mise à jour des badges de pourcentage
+            document.querySelectorAll('.cost-card .badge').forEach((badge, index) => {
+                const values = Object.values(percentages);
+                if (index < values.length) {
+                    badge.textContent = Math.round(values[index] * 100) + '%';
+                }
+            });
+            
+            // Mise à jour du graphique
+            updateBudgetChart(percentages);
+        }
+
+        // Mise à jour du graphique du budget
+        function updateBudgetChart(percentages) {
+            const chart = Chart.getChart('budgetChart');
+            if (chart) {
+                chart.data.datasets[0].data = [
+                    Math.round(percentages.fondations * 100),
+                    Math.round(percentages.elevation * 100),
+                    Math.round(percentages.toiture * 100),
+                    Math.round(percentages.finition * 100),
+                    Math.round(percentages.divers * 100)
+                ];
+                chart.update();
+            }
+        }
+
+        // Mise à jour lors du changement de type de construction ou de matériau
+        document.getElementById('constructionType').addEventListener('change', updateCostCalculation);
+        document.getElementById('materialType').addEventListener('change', updateCostCalculation);
+        document.getElementById('regionType').addEventListener('change', updateCostCalculation);
+        document.getElementById('includeFees').addEventListener('change', updateCostCalculation);
+
+        // Fonctions pour sauvegarder et imprimer
+        function saveEstimation() {
+            const surface = document.getElementById('surfaceRange').value;
+            const constructionType = document.getElementById('constructionType').options[document.getElementById('constructionType').selectedIndex].text;
+            const materialType = document.getElementById('materialType').options[document.getElementById('materialType').selectedIndex].text;
+            const regionType = document.getElementById('regionType').options[document.getElementById('regionType').selectedIndex].text;
+            const includeFees = document.getElementById('includeFees').checked ? 'Oui' : 'Non';
+            const totalCost = document.getElementById('totalCost').textContent;
+            const costPerM2 = document.getElementById('costPerM2').textContent;
+            
+            const estimation = `
+                ESTIMATION DE CONSTRUCTION
+                ==========================
+                Surface: ${surface} m²
+                Type: ${constructionType}
+                Matériau: ${materialType}
+                Région: ${regionType}
+                Frais inclus: ${includeFees}
+                
+                COÛT TOTAL: ${totalCost}
+                COÛT AU M²: ${costPerM2}
+                
+                DÉTAIL PAR POSTE:
+                - Fondations: ${document.getElementById('foundationCost').textContent}
+                - Élévation: ${document.getElementById('elevationCost').textContent}
+                - Toiture: ${document.getElementById('roofCost').textContent}
+                - Finition: ${document.getElementById('finishCost').textContent}
+                - Divers: ${document.getElementById('otherCost').textContent}
+                
+                Date: ${new Date().toLocaleDateString()}
+            `;
+            
+            const blob = new Blob([estimation], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `estimation-construction-${new Date().getTime()}.txt`;
+            a.click();
+            
+            showToast('Estimation sauvegardée avec succès!');
+        }
+
+        function printEstimation() {
+            showToast('Fonction d\'impression bientôt disponible!');
+        }
+
+        function showToast(message) {
+            // Création d'un toast Bootstrap (simplifié)
+            const toast = document.createElement('div');
+            toast.className = 'position-fixed bottom-0 end-0 p-3';
+            toast.innerHTML = `
+                <div class="toast show" role="alert">
+                    <div class="toast-header">
+                        <strong class="me-auto">Guide Construction</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                    </div>
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            
+            // Suppression automatique après 3 secondes
+            setTimeout(() => {
+                document.body.removeChild(toast);
+            }, 3000);
+        }
+
+        // Fonction pour afficher les détails (exemple)
+        function showDetails(type) {
+            alert('Fonctionnalité en développement: Détails sur ' + type.toUpperCase());
+        }
+    </script>
 </body>
 </html>
